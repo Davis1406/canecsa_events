@@ -609,8 +609,8 @@ class Link(BaseWithSoftDelete):
     event_id = Column(
         Integer, ForeignKey("event.id", ondelete="CASCADE"), nullable=False
     )
-    link = Column(Text, nullable=False)
-    name = Column(Text, nullable=False)
+    link = Column(String(500), nullable=False)
+    name = Column(String(255), nullable=False)
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
     )
@@ -624,7 +624,7 @@ class Link(BaseWithSoftDelete):
 
     events = relationship("Event", back_populates="links")
 
-    __table_args__ = (Index("ix_document", "link", "deleted_at"),)
+    __table_args__ = (Index("ix_link", "link", "deleted_at"),)
 
     def __repr__(self):
         return f"<Link link={self.link}, name={self.name}>"
