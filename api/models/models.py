@@ -107,7 +107,7 @@ class User(BaseWithSoftDelete):
     phone = Column(String(25), nullable=True, unique=True)
     email = Column(String(45), nullable=False, unique=True)
     hashed_password = Column(String(200), nullable=False)
-    verified = Column(Boolean, nullable=False, server_default="False")
+    verified = Column(Boolean, nullable=False, server_default="0")
     credentials_sent = Column(Boolean, nullable=False, server_default="0")
     is_reviewer = Column(Boolean, nullable=False, server_default="0")
     must_change_password = Column(Boolean, nullable=False, server_default="0")
