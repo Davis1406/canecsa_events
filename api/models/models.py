@@ -344,9 +344,9 @@ class ActivityLog(BaseWithSoftDelete):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=True)
-    action = Column(String, nullable=False)
-    target = Column(String, nullable=True)
-    ip_address = Column(String, nullable=True)
+    action = Column(String(200), nullable=False)
+    target = Column(String(200), nullable=True)
+    ip_address = Column(String(50), nullable=True)
     additional_data = Column(JSON, nullable=True)
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
@@ -370,7 +370,7 @@ class PasswordReset(BaseWithSoftDelete):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
-    reset_token = Column(String, nullable=False, unique=True, index=True)
+    reset_token = Column(String(255), nullable=False, unique=True, index=True)
     expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
     is_used = Column(Boolean, default=False)
     created_at = Column(
@@ -395,7 +395,7 @@ class AccountVerification(BaseWithSoftDelete):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
-    verification_token = Column(String, nullable=False, unique=True, index=True)
+    verification_token = Column(String(255), nullable=False, unique=True, index=True)
     expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
     is_used = Column(Boolean, default=False)
     created_at = Column(
