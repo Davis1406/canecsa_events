@@ -25,6 +25,13 @@ const eventStats = ref([])
 const loading = ref(false)
 const error = ref(null)
 
+const submissionOpen = ref(false)
+const submissionDeadline = ref(null)
+const togglingSubmission = ref(false)
+const deadlineInput = ref('')
+const savingDeadline = ref(false)
+const deadlineMsg = ref('')
+
 async function loadDashboard() {
   loading.value = true
   error.value = null
@@ -37,10 +44,56 @@ async function loadDashboard() {
     totalRegistrations.value = res.data.total_registrations
     recentEvents.value = res.data.recent_events
     eventStats.value = res.data.event_stats
+
+    // Load first event for submission controls
+    const evRes = await api.get('/events/?skip=0&limit=200')
+    const events = evRes.data.data || []
+    if (events.length > 0) {
+      const eventId = events[0].id
+      firstEventId.value = eventId
+      const statusRes = await api.get(`/abstracts/submission-status/${eventId}`)
+      submissionOpen.value = statusRes.data.abstract_submissions_open
+      submissionDeadline.value = statusRes.data.deadline
+      if (statusRes.data.deadline) {
+        deadlineInput.value = new Date(statusRes.data.deadline).toISOString().slice(0, 16)
+      }
+    }
   } catch (err) {
     error.value = err.response?.data?.detail || err.message || 'Failed to load dashboard data'
   } finally {
     loading.value = false
+  }
+}
+
+const firstEventId = ref(null)
+
+async function toggleSubmission() {
+  if (!firstEventId.value) return
+  togglingSubmission.value = true
+  try {
+    const res = await api.post(`/abstracts/submission-status/${firstEventId.value}?open_submissions=${!submissionOpen.value}`)
+    submissionOpen.value = res.data.abstract_submissions_open
+  } catch (e) {
+    // ignore
+  } finally {
+    togglingSubmission.value = false
+  }
+}
+
+async function saveDeadline() {
+  if (!firstEventId.value || !deadlineInput.value) return
+  savingDeadline.value = true
+  deadlineMsg.value = ''
+  try {
+    const res = await api.put(`/abstracts/submission-deadline/${firstEventId.value}?deadline=${encodeURIComponent(deadlineInput.value)}`)
+    submissionDeadline.value = deadlineInput.value
+    submissionOpen.value = res.data.abstract_submissions_open
+    deadlineMsg.value = 'Saved'
+    setTimeout(() => { deadlineMsg.value = '' }, 3000)
+  } catch (e) {
+    deadlineMsg.value = 'Failed to save'
+  } finally {
+    savingDeadline.value = false
   }
 }
 
@@ -65,7 +118,7 @@ onMounted(loadDashboard)
       <div v-else class="space-y-6">
 
         <!-- Full admin top cards -->
-        <div v-if="isFullAdmin" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-if="isFullAdmin" class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <router-link :to="{ name: 'Users' }"
             class="bg-white rounded-2xl shadow p-5 flex items-center gap-5 transition hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
             <div class="bg-blue-100 text-blue-600 rounded-full p-3">
@@ -74,26 +127,6 @@ onMounted(loadDashboard)
             <div>
               <h3 class="text-sm text-gray-500">Total Users</h3>
               <p class="text-2xl font-extrabold">{{ totalUsers }}</p>
-            </div>
-          </router-link>
-          <router-link :to="{ name: 'AdminEvents' }"
-            class="bg-white rounded-2xl shadow p-5 flex items-center gap-5 transition hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-            <div class="bg-green-100 text-green-600 rounded-full p-3">
-              <CalendarDaysIcon class="h-7 w-7" />
-            </div>
-            <div>
-              <h3 class="text-sm text-gray-500">Upcoming Events</h3>
-              <p class="text-2xl font-extrabold">{{ upcomingEventsCount }}</p>
-            </div>
-          </router-link>
-          <router-link :to="{ name: 'AdminEvents' }"
-            class="bg-white rounded-2xl shadow p-5 flex items-center gap-5 transition hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-            <div class="bg-yellow-100 text-yellow-600 rounded-full p-3">
-              <CheckCircleIcon class="h-7 w-7" />
-            </div>
-            <div>
-              <h3 class="text-sm text-gray-500">Completed Events</h3>
-              <p class="text-2xl font-extrabold">{{ completedEventsCount }}</p>
             </div>
           </router-link>
           <router-link :to="{ name: 'AdminAbstracts' }"
@@ -112,7 +145,7 @@ onMounted(loadDashboard)
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <router-link :to="{ name: 'AdminAbstracts' }"
             class="bg-white rounded-2xl shadow p-6 flex items-center gap-5 transition hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-            <div class="bg-[#0095B6]/10 text-[#0095B6] rounded-full p-4">
+            <div class="bg-[#0062ad]/10 text-[#0062ad] rounded-full p-4">
               <DocumentTextIcon class="h-8 w-8" />
             </div>
             <div>
@@ -120,7 +153,7 @@ onMounted(loadDashboard)
               <p class="text-3xl font-extrabold text-gray-800">{{ totalAbstracts }}</p>
             </div>
           </router-link>
-          <router-link :to="{ name: 'AdminEvent', params: { id: 15 } }"
+          <router-link v-if="firstEventId" :to="{ name: 'AdminEvent', params: { id: firstEventId } }"
             class="bg-white rounded-2xl shadow p-6 flex items-center gap-5 transition hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
             <div class="bg-green-100 text-green-600 rounded-full p-4">
               <ClipboardDocumentCheckIcon class="h-8 w-8" />
@@ -132,82 +165,32 @@ onMounted(loadDashboard)
           </router-link>
         </div>
 
-        <!-- Per-event stats table (always shown) -->
-        <div class="bg-white shadow rounded-xl overflow-hidden">
-          <h2 class="text-base font-semibold px-6 pt-5 pb-3 text-gray-800">
-            Registrations &amp; Abstracts by Event
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="w-full table-auto text-sm text-gray-800">
-              <thead class="bg-gray-100 text-left uppercase text-xs text-gray-600">
-                <tr>
-                  <th class="px-6 py-3">Event</th>
-                  <th class="px-6 py-3 text-center">Status</th>
-                  <th class="px-6 py-3 text-center">Registrations</th>
-                  <th class="px-6 py-3 text-center">Abstracts</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="eventStats.length === 0">
-                  <td colspan="4" class="text-center px-6 py-8 text-gray-400 italic">No events found.</td>
-                </tr>
-                <tr
-                  v-for="ev in eventStats"
-                  :key="ev.id"
-                  class="border-t hover:bg-gray-50 even:bg-gray-50 odd:bg-white"
-                >
-                  <td class="px-6 py-4 font-medium">{{ ev.name }}</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      :class="ev.status === 'upcoming' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'"
-                      class="px-3 py-1 rounded-full text-xs font-semibold capitalize"
-                    >{{ ev.status }}</span>
-                  </td>
-                  <td class="px-6 py-4 text-center font-semibold text-gray-700">{{ ev.registrations }}</td>
-                  <td class="px-6 py-4 text-center font-semibold text-gray-700">{{ ev.abstracts }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <!-- Abstract Submission Window Control -->
+        <div v-if="isFullAdmin && firstEventId" class="bg-white rounded-2xl shadow p-6 space-y-4">
+          <h3 class="text-lg font-bold text-gray-800">Abstract Submission Window</h3>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Status:</span>
+            <button @click="toggleSubmission" :disabled="togglingSubmission"
+              class="relative inline-flex h-7 w-14 items-center rounded-full transition-colors duration-200 focus:outline-none"
+              :class="submissionOpen ? 'bg-green-500' : 'bg-gray-300'">
+              <span class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform duration-200"
+                :class="submissionOpen ? 'translate-x-7' : 'translate-x-1'" />
+            </button>
+            <span class="text-sm font-semibold" :class="submissionOpen ? 'text-green-600' : 'text-gray-500'">
+              {{ submissionOpen ? 'Open' : 'Closed' }}
+            </span>
           </div>
-        </div>
-
-        <!-- Full admin recent events (only for full admins) -->
-        <div v-if="isFullAdmin" class="bg-white shadow rounded-xl overflow-hidden">
-          <h2 class="text-base font-semibold px-6 pt-5 pb-3 text-gray-800">Recent Events Detail</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full table-auto text-sm text-gray-800">
-              <thead class="bg-gray-100 text-left uppercase text-xs text-gray-600">
-                <tr>
-                  <th class="px-6 py-3">Event</th>
-                  <th class="px-6 py-3">Start Date</th>
-                  <th class="px-6 py-3">End Date</th>
-                  <th class="px-6 py-3 text-center">Participants</th>
-                  <th class="px-6 py-3 text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="recentEvents.length === 0">
-                  <td colspan="5" class="text-center px-6 py-6 text-gray-400 italic">No recent events.</td>
-                </tr>
-                <tr
-                  v-for="event in recentEvents"
-                  :key="event.id"
-                  class="border-t hover:bg-gray-50 even:bg-gray-50 odd:bg-white"
-                >
-                  <td class="px-6 py-4 font-medium">{{ event.name }}</td>
-                  <td class="px-6 py-4">{{ new Date(event.start_date).toLocaleDateString() }}</td>
-                  <td class="px-6 py-4">{{ new Date(event.end_date).toLocaleDateString() }}</td>
-                  <td class="px-6 py-4 text-center">{{ event.participants }}</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      :class="event.status === 'upcoming' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'"
-                      class="px-3 py-1 rounded-full text-xs font-semibold capitalize"
-                    >{{ event.status }}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="flex items-center gap-3">
+            <input v-model="deadlineInput" type="datetime-local"
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
+            <button @click="saveDeadline" :disabled="savingDeadline || !deadlineInput"
+              class="px-4 py-2 bg-[#0062ad] text-white text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50">
+              {{ savingDeadline ? 'Saving…' : 'Save Deadline' }}
+            </button>
           </div>
+          <p v-if="deadlineMsg" class="text-xs font-semibold" :class="deadlineMsg === 'Saved' ? 'text-green-600' : 'text-red-600'">
+            {{ deadlineMsg }}
+          </p>
         </div>
 
       </div>

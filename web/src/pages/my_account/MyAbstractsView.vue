@@ -13,7 +13,7 @@
         <div class="flex items-start justify-between gap-4 flex-wrap">
           <div class="flex-1">
             <h2 class="font-semibold text-gray-800 text-lg">{{ abs.title }}</h2>
-            <p class="text-gray-500 text-sm mt-1">{{ abs.event }} &bull; {{ abs.track || 'No track' }}</p>
+            <p class="text-gray-500 text-sm mt-1">{{ abs.event }} &bull; {{ abs.track || 'No sub-theme' }}</p>
             <p class="text-gray-400 text-xs mt-1">{{ abs.word_count }} words &bull; Submitted {{ formatDate(abs.created_at) }}</p>
           </div>
           <span :class="statusClass(abs.status)" class="px-3 py-1 rounded-full text-sm font-semibold capitalize flex-shrink-0">
@@ -49,7 +49,7 @@
             <a v-for="t in templatesForAbstract(abs)" :key="t.id"
               :href="t.url" target="_blank"
               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>

@@ -17,7 +17,7 @@
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
             <input v-model="newCluster.name" type="text" required autofocus
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
             <p v-if="submitted && !newCluster.name" class="text-sm text-red-500 mt-1">Name is required.</p>
           </div>
 
@@ -25,7 +25,7 @@
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
             <select v-model="newCluster.type" required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option disabled value="">Select a type</option>
               <option v-for="type in clusterTypes" :key="type" :value="type.toLowerCase()">{{ type }}</option>
             </select>
@@ -36,7 +36,7 @@
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea v-model="newCluster.description" rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"></textarea>
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"></textarea>
           </div>
 
           <!-- Brand Colors -->
@@ -101,8 +101,8 @@ const newCluster = ref({
   name: '',
   type: '',
   description: '',
-  primary_color: '#0095B6',
-  secondary_color: '#F7941D',
+  primary_color: '#1a1d56',
+  secondary_color: '#f59d08',
   logo: null,
 })
 

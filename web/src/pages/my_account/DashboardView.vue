@@ -28,58 +28,15 @@
         <p class="text-gray-700">📱 {{ user.phone }}</p>
       </div>
     </div>
-
-    <!-- Events Registered -->
-    <div v-if="!loading && !error" class="mt-6">
-      <h3 class="text-lg font-semibold text-black mb-4">Registered Events</h3>
-      <div v-if="user.events.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div
-          v-for="event in user.events"
-          :key="event.id"
-          class="bg-white p-4 rounded-xl shadow hover:shadow-md transition"
-        >
-          <router-link :to="{ name: 'MyEvent', params: { id: event.id } }" class="text-md font-semibold text-gray-900 mb-1">{{ event.event }}</router-link>
-          <p class="text-sm text-gray-600 mb-2">
-            From: {{ formatDate(event.start_date) }} <br />
-            To: {{ formatDate(event.end_date) }}
-          </p>
-          <span
-            :class="event.paid ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'"
-            class="inline-block px-2 py-1 rounded-full text-xs font-semibold"
-          >
-            {{ event.paid ? 'Paid' : 'Not Paid' }}
-          </span>
-
-          <!-- Actions for unpaid upcoming events -->
-          <div v-if="!event.paid && isUpcoming(event.start_date)" class="mt-3 flex flex-col gap-2">
-            <button
-              @click="goToPaymentPage(event)"
-              class="w-full text-sm font-semibold text-white rounded-lg py-1.5 px-3 transition hover:opacity-90"
-              style="background-color:#0095B6;">
-              Go to Payment Page
-            </button>
-            <button
-              @click="uploadProof(event)"
-              class="w-full text-sm font-semibold rounded-lg py-1.5 px-3 border-2 transition hover:bg-gray-50"
-              style="color:#0095B6; border-color:#0095B6; background:#fff;">
-              Upload Proof of Payment
-            </button>
-          </div>
-        </div>
-      </div>
-      <p v-else class="text-gray-500 italic">You haven’t registered for any events yet.</p>
-    </div>
   </div>
   </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '@/plugins/axios'
 import { useAuthStore } from '@/stores/auth'
 import defaultAvatarImg from '@/assets/default-avatar.svg'
 
-const router = useRouter()
 const auth = useAuthStore()
 
 const user = ref({
@@ -87,7 +44,6 @@ const user = ref({
   email: '',
   phone: '',
   pictureUrl: '',
-  events: []
 })
 
 const loading = ref(false)
@@ -102,12 +58,6 @@ const fetchUser = async () => {
     const res = await api.get(`/users/${auth.user?.id}`)
     const data = res.data
 
-    // Add paid status defaulting to false if missing
-    const eventsWithPaid = (data.events || []).map(event => ({
-      ...event,
-      paid: event.paid ?? false
-    }))
-
     user.value = {
       name: `${data.user.firstname} ${data.user.lastname}`,
       email: data.user.email,
@@ -115,7 +65,6 @@ const fetchUser = async () => {
       pictureUrl: data.profile_picture?.profile_picture
         ? `${apiBaseUrl}/${data.profile_picture.profile_picture}`
         : defaultAvatar,
-      events: eventsWithPaid
     }
   } catch (err) {
     error.value = 'Failed to load user details.'
@@ -123,32 +72,6 @@ const fetchUser = async () => {
   } finally {
     loading.value = false
   }
-}
-
-// Returns true if the event start date is in the future (upcoming)
-const isUpcoming = (startDate) => {
-  if (!startDate) return false
-  const now = new Date()
-  const eventStart = new Date(startDate)
-  return eventStart > now
-}
-
-const formatDate = (isoDate) => {
-  if (!isoDate) return ''
-  const date = new Date(isoDate)
-  return date.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  })
-}
-
-function goToPaymentPage(event) {
-  router.push(`/payment/${event.id}/${event.registration_id}?action=pay`)
-}
-
-function uploadProof(event) {
-  router.push(`/payment/${event.id}/${event.registration_id}`)
 }
 
 onMounted(() => {

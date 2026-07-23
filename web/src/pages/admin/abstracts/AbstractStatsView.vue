@@ -83,7 +83,7 @@
           </div>
           <div class="flex-1 flex rounded-full overflow-hidden h-4 bg-white">
             <div class="h-4 transition-all duration-500"
-              :style="{ width: (c.accepted / maxCountryTotal * 100) + '%', backgroundColor: '#0095B6', minWidth: c.accepted ? '1.2rem' : '0' }">
+              :style="{ width: (c.accepted / maxCountryTotal * 100) + '%', backgroundColor: '#1a1d56', minWidth: c.accepted ? '1.2rem' : '0' }">
             </div>
             <div class="h-4 transition-all duration-500"
               :style="{ width: ((c.total - c.accepted) / maxCountryTotal * 100) + '%', backgroundColor: '#bae6fd' }">
@@ -93,11 +93,11 @@
         </div>
       </div>
       <div class="mt-2 flex items-center gap-4 text-xs text-gray-400">
-        <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#0095B6"></span>Accepted</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#1a1d56"></span>Accepted</span>
         <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#bae6fd"></span>Other</span>
       </div>
       <button v-if="countryRows.length > 15" @click="showAll = !showAll"
-        class="mt-2 text-xs font-medium hover:underline" style="color:#0095B6;">
+        class="mt-2 text-xs font-medium hover:underline" style="color:#1a1d56;">
         {{ showAll ? 'Show less ▲' : `Show all ${countryRows.length} countries ▼` }}
       </button>
     </div>
@@ -110,7 +110,7 @@
           <span class="w-48 text-xs text-gray-500 truncate flex-shrink-0" :title="t.track">{{ t.track }}</span>
           <div class="flex-1 flex rounded-full overflow-hidden h-4 bg-white">
             <div class="h-4 transition-all duration-500"
-              :style="{ width: (t.accepted / t.total * 100) + '%', backgroundColor: '#0095B6', minWidth: t.accepted ? '1.2rem' : '0' }">
+              :style="{ width: (t.accepted / t.total * 100) + '%', backgroundColor: '#1a1d56', minWidth: t.accepted ? '1.2rem' : '0' }">
             </div>
             <div class="h-4 transition-all duration-500"
               :style="{ width: ((t.total - t.accepted) / t.total * 100) + '%', backgroundColor: '#e0f2fe' }">
@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="mt-2 flex items-center gap-4 text-xs text-gray-400">
-        <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#0095B6"></span>Accepted</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#1a1d56"></span>Accepted</span>
         <span class="flex items-center gap-1.5"><span class="w-3 h-2 rounded-sm inline-block" style="background:#e0f2fe"></span>Other</span>
       </div>
     </div>
@@ -141,10 +141,10 @@ const D = 140, W = 20, R = (D - W) / 2
 const circumference = computed(() => 2 * Math.PI * R)
 
 const STATUS_COLORS = {
-  accepted: '#0095B6', submitted: '#3b82f6',
+  accepted: '#1a1d56', submitted: '#3b82f6',
   under_review: '#f59e0b', rejected: '#ef4444', revision_required: '#f97316',
 }
-const TYPE_COLORS = { oral: '#1B3F6E', poster: '#F7941D' }
+const TYPE_COLORS = { oral: '#1B3F6E', poster: '#f59d08' }
 
 const kpis = computed(() => {
   const s = stats.value
@@ -153,10 +153,10 @@ const kpis = computed(() => {
   const poster = s.by_type?.find(t => t.type === 'poster')?.count || 0
   return [
     { label: 'Total',              value: s.total,             accent: '#6b7280' },
-    { label: 'Accepted',           value: s.total_accepted,    accent: '#0095B6', sub: `${pct}% acceptance rate` },
+    { label: 'Accepted',           value: s.total_accepted,    accent: '#1a1d56', sub: `${pct}% acceptance rate` },
     { label: 'Reviewer Rejected',  value: s.reviewer_rejected, accent: '#ef4444', sub: '≥2 reviewers recommended reject' },
     { label: 'Oral',               value: oral,                accent: '#1B3F6E' },
-    { label: 'Poster',             value: poster,              accent: '#F7941D' },
+    { label: 'Poster',             value: poster,              accent: '#f59d08' },
   ]
 })
 

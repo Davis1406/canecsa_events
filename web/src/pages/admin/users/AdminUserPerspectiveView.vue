@@ -17,7 +17,7 @@
         <!-- ── Profile card ─────────────────────────────────────────────── -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row gap-5">
           <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
-            style="background:#0095B6;">
+            style="background:#1a1d56;">
             {{ initials }}
           </div>
           <div class="flex-1 min-w-0 space-y-0.5">
@@ -39,7 +39,7 @@
               @click="impersonate"
               :disabled="impersonating"
               class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
-              style="background:#0095B6;"
+              style="background:#1a1d56;"
             >
               <svg v-if="impersonating" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>

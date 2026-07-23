@@ -37,7 +37,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 py-4 flex flex-wrap gap-4 items-end">
           <div class="flex-1 min-w-[160px]">
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Payment Status</label>
-            <select v-model="filterPaid" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+            <select v-model="filterPaid" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option value="all">All</option>
               <option value="paid">Paid only</option>
               <option value="unpaid">Unpaid only</option>
@@ -46,21 +46,21 @@
           </div>
           <div class="flex-1 min-w-[160px]">
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Country</label>
-            <select v-model="filterCountry" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+            <select v-model="filterCountry" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option value="">All Countries</option>
               <option v-for="c in allCountries" :key="c" :value="c">{{ c }}</option>
             </select>
           </div>
           <div class="flex-1 min-w-[160px]">
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Role</label>
-            <select v-model="filterRole" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+            <select v-model="filterRole" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option value="">All Roles</option>
               <option v-for="r in allRoles" :key="r" :value="r">{{ r.replace(/_/g, ' ') }}</option>
             </select>
           </div>
           <div class="flex-1 min-w-[160px]">
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Payment Method</label>
-            <select v-model="filterMethod" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+            <select v-model="filterMethod" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option value="">All Methods</option>
               <option v-for="m in allMethods" :key="m" :value="m">{{ m }}</option>
             </select>
@@ -79,9 +79,9 @@
           </div>
           <div class="bg-white rounded-2xl px-5 py-4 shadow-sm border border-gray-100 flex flex-col gap-1">
             <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Paid</p>
-            <p class="text-3xl font-bold" style="color:#0095B6">{{ filtered.filter(p => p.paid).length }}</p>
+            <p class="text-3xl font-bold" style="color:#1a1d56">{{ filtered.filter(p => p.paid).length }}</p>
             <div class="w-full bg-gray-100 rounded-full h-1.5 mt-1">
-              <div class="h-1.5 rounded-full transition-all" style="background:#0095B6"
+              <div class="h-1.5 rounded-full transition-all" style="background:#1a1d56"
                 :style="{ width: paidPct + '%' }"></div>
             </div>
             <p class="text-xs text-gray-400">{{ paidPct }}%</p>
@@ -111,7 +111,7 @@
               <div v-for="[country, count] in countryCounts" :key="country" class="flex items-center gap-2">
                 <span class="text-sm text-gray-700 flex-1 truncate">{{ country || 'Unknown' }}</span>
                 <div class="w-24 bg-gray-100 rounded-full h-1.5 flex-shrink-0">
-                  <div class="h-1.5 rounded-full" style="background:#0095B6"
+                  <div class="h-1.5 rounded-full" style="background:#1a1d56"
                     :style="{ width: (count / filtered.length * 100) + '%' }"></div>
                 </div>
                 <span class="text-xs font-semibold text-gray-500 w-8 text-right flex-shrink-0">{{ count }}</span>

@@ -24,7 +24,7 @@
               type="text"
               required
               autofocus
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newRole.role" class="text-sm text-red-500 mt-1">Role is required.</p>
           </div>
@@ -35,7 +35,7 @@
             <textarea
               v-model="newRole.description"
               rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             ></textarea>
           </div>
 

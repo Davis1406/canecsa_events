@@ -1,5 +1,5 @@
 from enum import Enum as PyEnum
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 from sqlalchemy import Numeric
 from sqlalchemy import (
     Column,
@@ -466,6 +466,8 @@ class Event(Base):
     participation_info = Column(Text, nullable=True)
     logistics_info = Column(Text, nullable=True)
     sponsors_info = Column(Text, nullable=True)
+    abstract_submission_deadline = Column(TIMESTAMP(timezone=True), nullable=True)
+    abstract_submissions_open = Column(Boolean, default=False, nullable=False, server_default=text('0'))
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=func.now()
     )
@@ -681,7 +683,7 @@ class EventTrack(Base):
     __tablename__ = "event_track"
 
     id         = Column(Integer, primary_key=True, index=True)
-    event_id   = Column(Integer, ForeignKey("event.id"), nullable=False)
+    event_id   = Column(Integer, ForeignKey("event.id"), nullable=True)
     code       = Column(String(50), nullable=False)   # e.g. "Track 1.1"
     title      = Column(Text, nullable=False)          # full subtitle
     theme      = Column(String(500), nullable=True)    # parent theme group

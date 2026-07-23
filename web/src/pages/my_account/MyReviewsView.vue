@@ -21,7 +21,7 @@
           </button>
           <div class="flex-1 min-w-0 cursor-pointer" @click="a._expanded = !a._expanded">
             <h2 class="font-semibold text-gray-800 text-lg leading-snug">{{ a.abstract.title }}</h2>
-            <p class="text-gray-500 text-sm mt-1">{{ a.abstract.event }} &bull; {{ a.abstract.track || 'No track' }}</p>
+            <p class="text-gray-500 text-sm mt-1">{{ a.abstract.event }} &bull; {{ a.abstract.track || 'No sub-theme' }}</p>
             <p class="text-gray-400 text-xs mt-1">{{ a.abstract.word_count }} words &bull; Assigned {{ formatDate(a.assigned_at) }}</p>
           </div>
           <div class="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">
@@ -56,7 +56,7 @@
             <p class="text-sm font-semibold text-green-700">Your Review — <span class="capitalize">{{ a.review.recommendation?.replace('_',' ') }}</span></p>
             <button @click="startEdit(a)"
               class="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition"
-              style="color:#0095B6; border-color:#b3e4f0; background-color:#e6f7fb;">
+              style="color:#1a1d56; border-color:#b3e4f0; background-color:#e6f7fb;">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>

@@ -2,10 +2,10 @@
   <div class="min-h-screen bg-gray-50">
 
     <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
-    <section class="relative overflow-hidden text-white" style="background: linear-gradient(135deg, #0095B6 0%, #007A96 60%, #005F75 100%);">
+    <section class="relative overflow-hidden text-white" style="background: linear-gradient(135deg, #1a1d56 0%, #171a4d 60%, #131540 100%);">
       <!-- Decorative rings -->
-      <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style="background: #F7941D;"></div>
-      <div class="absolute -bottom-12 -left-12 w-56 h-56 rounded-full opacity-10" style="background: #F7941D;"></div>
+      <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style="background: #f59d08;"></div>
+      <div class="absolute -bottom-12 -left-12 w-56 h-56 rounded-full opacity-10" style="background: #f59d08;"></div>
 
       <div class="relative z-10 max-w-5xl mx-auto px-6 py-16 sm:py-24 text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-6">
@@ -13,11 +13,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
-          ECSA-HC Secretariat
+          CANECSA Secretariat
         </div>
         <h1 class="text-4xl sm:text-5xl font-black mb-4 drop-shadow-sm">Get In Touch</h1>
         <p class="text-lg text-white/80 max-w-xl mx-auto leading-relaxed">
-          Reach out to the ECSA-HC Secretariat for enquiries about events, registration, sponsorship, or any other information.
+          Reach out to the CANECSA Secretariat for enquiries about events, registration, sponsorship, or any other information.
         </p>
       </div>
     </section>
@@ -28,7 +28,7 @@
 
         <!-- Address -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow">
-          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #1a1d56;">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -36,7 +36,7 @@
             </svg>
           </div>
           <div>
-            <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wide mb-2" style="color: #0095B6;">Address</h3>
+            <h3 class="font-bold text-gray-800 text-sm uppercase tracking-wide mb-2" style="color: #1a1d56;">Address</h3>
             <p class="text-gray-600 text-sm leading-relaxed">
               157 Olorien, Njiro Road<br />
               P.O. Box 1009<br />
@@ -47,14 +47,14 @@
 
         <!-- Phone -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow">
-          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #F7941D;">
+          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #f59d08;">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
           </div>
           <div>
-            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #F7941D;">Phone</h3>
+            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #f59d08;">Phone</h3>
             <a href="tel:+255272973677" class="text-gray-600 text-sm hover:underline block">+255-27-2973677</a>
             <a href="tel:+255272973678" class="text-gray-600 text-sm hover:underline block">+255-27-2973678</a>
             <p class="text-gray-400 text-xs mt-2">Mon – Fri · 08:00 – 17:00 (EAT)</p>
@@ -63,38 +63,38 @@
 
         <!-- Email -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow">
-          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #1a1d56;">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
           <div>
-            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #0095B6;">Email</h3>
-            <a href="mailto:regsec@ecsahc.org" class="text-gray-600 text-sm hover:underline break-all block">
-              regsec@ecsahc.org
+            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #1a1d56;">Email</h3>
+            <a href="mailto:info@canecsa.org" class="text-gray-600 text-sm hover:underline break-all block">
+              info@canecsa.org
             </a>
-            <a href="mailto:events@ecsahc.org" class="text-gray-600 text-sm hover:underline break-all block mt-1">
-              events@ecsahc.org
+            <a href="mailto:info@canecsa.org" class="text-gray-600 text-sm hover:underline break-all block mt-1">
+              info@canecsa.org
             </a>
           </div>
         </div>
 
         <!-- Website -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4 hover:shadow-lg transition-shadow">
-          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #F7941D;">
+          <div class="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #f59d08;">
             <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
             </svg>
           </div>
           <div>
-            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #F7941D;">Website</h3>
-            <a href="https://www.ecsahc.org" target="_blank" class="text-gray-600 text-sm hover:underline block">
-              www.ecsahc.org
+            <h3 class="font-bold text-sm uppercase tracking-wide mb-2" style="color: #f59d08;">Website</h3>
+            <a href="https://canecsa.org" target="_blank" class="text-gray-600 text-sm hover:underline block">
+              canecsa.org
             </a>
-            <a href="https://events.ecsahc.org" target="_blank" class="text-gray-600 text-sm hover:underline block mt-1">
-              events.ecsahc.org
+            <a href="https://canecsa.org" target="_blank" class="text-gray-600 text-sm hover:underline block mt-1">
+              canecsa.org
             </a>
           </div>
         </div>
@@ -115,42 +115,42 @@
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="ECSA-HC Secretariat — Arusha, Tanzania"
+          title="CANECSA Secretariat — Arusha, Tanzania"
         ></iframe>
       </div>
 
       <!-- About the Secretariat -->
       <div class="md:col-span-2 bg-white rounded-2xl shadow-md p-7 flex flex-col justify-between">
         <div>
-          <h2 class="text-xl font-bold text-gray-800 mb-4" style="color: #0095B6;">About ECSA-HC</h2>
+          <h2 class="text-xl font-bold text-gray-800 mb-4" style="color: #1a1d56;">About CANECSA</h2>
           <p class="text-gray-600 text-sm leading-relaxed mb-4">
-            The East, Central and Southern Africa Health Community (ECSA-HC) is an intergovernmental health organisation serving 14 Member States.
+            The College of Anaesthesiologists of East, Central and Southern Africa (CANECSA) is an intergovernmental health organisation serving 14 Member States.
           </p>
           <p class="text-gray-600 text-sm leading-relaxed mb-4">
             The Secretariat, based in Arusha, Tanzania, coordinates regional health programmes, hosts ministerial conferences, and facilitates technical collaboration across the region.
           </p>
           <div class="space-y-2 text-sm text-gray-600">
             <div class="flex items-center gap-2">
-              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #0095B6;"></span>
+              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #1a1d56;"></span>
               14 Member States
             </div>
             <div class="flex items-center gap-2">
-              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               Founded 1974
             </div>
             <div class="flex items-center gap-2">
-              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #0095B6;"></span>
+              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #1a1d56;"></span>
               Headquarters: Arusha, Tanzania
             </div>
           </div>
         </div>
         <a
-          href="https://www.ecsahc.org"
+          href="https://canecsa.org"
           target="_blank"
           class="mt-6 inline-block text-center text-sm font-semibold px-5 py-2.5 rounded-full text-white transition hover:opacity-90"
-          style="background-color: #0095B6;"
+          style="background-color: #1a1d56;"
         >
-          Visit ECSA-HC Website →
+          Visit CANECSA Website →
         </a>
       </div>
 
@@ -168,25 +168,25 @@
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input v-model="form.name" type="text" required placeholder="Jane Doe"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                 <input v-model="form.email" type="email" required placeholder="jane@example.org"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Organisation</label>
               <input v-model="form.organisation" type="text" placeholder="Ministry of Health, Kenya"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
               <select v-model="form.subject"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                 <option disabled value="">Select a subject</option>
                 <option>Event Registration Enquiry</option>
                 <option>Sponsorship & Exhibition</option>
@@ -199,7 +199,7 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
               <textarea v-model="form.message" rows="5" required placeholder="Write your message here..."
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]"></textarea>
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"></textarea>
             </div>
 
             <!-- Success / error feedback -->
@@ -214,7 +214,7 @@
               type="submit"
               :disabled="sending"
               class="w-full sm:w-auto px-8 py-3 rounded-full font-semibold text-white text-sm transition hover:opacity-90 disabled:opacity-60"
-              style="background-color: #0095B6;"
+              style="background-color: #1a1d56;"
             >
               {{ sending ? 'Sending…' : 'Send Message' }}
             </button>

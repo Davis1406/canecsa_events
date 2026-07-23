@@ -42,7 +42,7 @@
 
           <!-- ── Title 1 (orange) baseline at y≈22% of badge height ────── -->
           <div class="absolute w-full text-center leading-tight px-2"
-               style="top:22%;transform:translateY(-50%);color:#F7941D;font-size:7.1cqw;font-weight:900;font-family:'Roboto Condensed',Roboto,sans-serif;">
+               style="top:22%;transform:translateY(-50%);color:#f59d08;font-size:7.1cqw;font-weight:900;font-family:'Roboto Condensed',Roboto,sans-serif;">
             {{ title1 }}
           </div>
 
@@ -133,7 +133,7 @@
       <div class="flex-shrink-0 px-4 py-3 border-t border-gray-100 flex justify-center bg-white">
         <button
           @click="downloadPDF"
-          class="bg-[#0095B6] hover:bg-[#007a95] text-white px-6 py-2 rounded-full text-sm font-semibold transition"
+          class="bg-[#1a1d56] hover:bg-[#007a95] text-white px-6 py-2 rounded-full text-sm font-semibold transition"
         >
           Download Badge PDF
         </button>
@@ -162,7 +162,7 @@ const badgeRef = ref(null)
 // ── Role colour map ──────────────────────────────────────────────────────────
 const ROLE_COLORS = {
   media:        '#FFD700',
-  moderator:    '#F7941D',
+  moderator:    '#f59d08',
   secretariat:  '#00AEEF',
   speaker:      '#C8102E',
   presenter:    '#C8102E',
@@ -173,8 +173,8 @@ const ROLE_COLORS = {
   world:        '#009639',
   student:      '#009639',
   participant:  '#009639',
-  exhibitor:    '#F7941D',
-  sponsor:      '#F7941D',
+  exhibitor:    '#f59d08',
+  sponsor:      '#f59d08',
 }
 const ROLE_LABELS = {
   media:        'MEDIA',
@@ -199,7 +199,7 @@ const roleKey = computed(() => {
   return (typeof r === 'object' ? r.name : String(r)).toLowerCase()
 })
 
-const roleColor           = computed(() => ROLE_COLORS[roleKey.value] || '#0095B6')
+const roleColor           = computed(() => ROLE_COLORS[roleKey.value] || '#1a1d56')
 const roleLabel           = computed(() => ROLE_LABELS[roleKey.value] || roleKey.value.toUpperCase())
 const roleBannerTextColor = computed(() => roleColor.value === '#FFD700' ? '#000' : '#fff')
 const roleLightColor      = computed(() => {

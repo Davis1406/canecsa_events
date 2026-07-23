@@ -1964,6 +1964,12 @@ def get_reviews(
 from pydantic import BaseModel as PydanticBase
 from typing import Optional
 
+class TrackCreateSchema(PydanticBase):
+    code:       str
+    title:      str
+    theme:      Optional[str] = None
+    sort_order: int = 0
+
 class TrackUpdateSchema(PydanticBase):
     code:       Optional[str] = None
     title:      Optional[str] = None
@@ -1985,14 +1991,30 @@ def _serialize_track(t: EventTrack, abstract_count: int = 0) -> dict:
     }
 
 
+_PRESET_SUBTHEMES = [
+    {"code": "ST-1", "title": "Preoperative Assessment and Optimisation", "theme": "Preoperative Assessment and Optimisation", "sort_order": 0},
+    {"code": "ST-2", "title": "Safe Intraoperative Care and Crisis Management", "theme": "Safe Intraoperative Care and Crisis Management", "sort_order": 1},
+    {"code": "ST-3", "title": "Postoperative Recovery and Critical Care", "theme": "Postoperative Recovery and Critical Care", "sort_order": 2},
+    {"code": "ST-4", "title": "Patient Safety, Quality Improvement and Systems Strengthening", "theme": "Patient Safety, Quality Improvement and Systems Strengthening", "sort_order": 3},
+    {"code": "ST-5", "title": "AI, Digital Health and Innovation", "theme": "AI, Digital Health and Innovation", "sort_order": 4},
+]
+
+def _ensure_subthemes(db: Session):
+    """Seed the 5 default CANECSA sub-themes if the table is empty."""
+    if db.query(EventTrack).count() == 0:
+        for s in _PRESET_SUBTHEMES:
+            db.add(EventTrack(**s))
+        db.commit()
+
+
 @router.get("/tracks/list")
 def list_tracks(
     current_user: user_dependency,
     db: Session = Depends(get_db),
     auth_dependency: Auth = Depends(get_auth_dep),
-    event_id: int = None,
 ):
     auth_dependency.secure_access("VIEW_ABSTRACTS", current_user["user_id"])
+    _ensure_subthemes(db)
     from sqlalchemy import func as sqlfunc
     q = db.query(
         EventTrack,
@@ -2000,9 +2022,7 @@ def list_tracks(
     ).outerjoin(
         Abstract,
         (Abstract.track_id == EventTrack.id) & (Abstract.deleted_at == None)
-    ).options(joinedload(EventTrack.event))
-    if event_id:
-        q = q.filter(EventTrack.event_id == event_id)
+    )
     rows = q.group_by(EventTrack.id).order_by(EventTrack.sort_order, EventTrack.code).all()
     return [_serialize_track(t, cnt) for t, cnt in rows]
 
@@ -2010,17 +2030,34 @@ def list_tracks(
 @router.get("/tracks/public")
 def list_tracks_public(
     db: Session = Depends(get_db),
-    event_id: int = None,
 ):
     """Public endpoint — no auth required. Returns tracks for the submission form."""
-    q = db.query(EventTrack)
-    if event_id:
-        q = q.filter(EventTrack.event_id == event_id)
-    rows = q.order_by(EventTrack.sort_order, EventTrack.code).all()
+    _ensure_subthemes(db)
+    rows = db.query(EventTrack).order_by(EventTrack.sort_order, EventTrack.code).all()
     return [
         {"id": t.id, "code": t.code, "title": t.title, "theme": t.theme, "sort_order": t.sort_order}
         for t in rows
     ]
+
+
+@router.post("/tracks/")
+def create_track(
+    schema: TrackCreateSchema,
+    current_user: user_dependency,
+    db: Session = Depends(get_db),
+    auth_dependency: Auth = Depends(get_auth_dep),
+):
+    auth_dependency.secure_access("VIEW_ABSTRACTS", current_user["user_id"])
+    track = EventTrack(
+        code=schema.code,
+        title=schema.title,
+        theme=schema.theme,
+        sort_order=schema.sort_order,
+    )
+    db.add(track)
+    db.commit()
+    db.refresh(track)
+    return _serialize_track(track, 0)
 
 
 @router.put("/tracks/{track_id}")
@@ -2361,5 +2398,86 @@ async def send_registration_reminders(
         "total_authors": len(author_rows),
         "already_registered": len(author_rows) - len(targets),
         "message": f"Registration/payment reminder queued for {len(targets)} author(s). {len(author_rows) - len(targets)} already registered and paid.",
+    }
+
+
+@router.get("/submission-status/{event_id}")
+async def get_submission_status(
+    event_id: int,
+    db: Session = Depends(get_db),
+):
+    """Public endpoint: return whether abstract submissions are open for an event."""
+    from models.models import Event
+    event = db.query(Event).filter(Event.id == event_id, Event.deleted_at.is_(None)).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    return {
+        "event_id": event.id,
+        "abstract_submissions_open": bool(event.abstract_submissions_open),
+        "deadline": event.abstract_submission_deadline.isoformat() if event.abstract_submission_deadline else None,
+    }
+
+
+@router.post("/submission-status/{event_id}")
+async def toggle_submission_status(
+    event_id: int,
+    open_submissions: bool = Query(..., description="Set to true to open, false to close"),
+    current_user: user_dependency = None,
+    db: Session = Depends(get_db),
+    auth_dependency: Auth = Depends(get_auth_dep),
+):
+    """Admin endpoint: open or close abstract submissions for an event."""
+    auth_dependency.secure_access("VIEW_ABSTRACTS", current_user["user_id"])
+
+    from models.models import Event
+    event = db.query(Event).filter(Event.id == event_id, Event.deleted_at.is_(None)).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    event.abstract_submissions_open = open_submissions
+    db.commit()
+    db.refresh(event)
+
+    return {
+        "event_id": event.id,
+        "abstract_submissions_open": bool(event.abstract_submissions_open),
+        "deadline": event.abstract_submission_deadline.isoformat() if event.abstract_submission_deadline else None,
+        "message": f"Abstract submissions {'opened' if open_submissions else 'closed'} for event {event.event}.",
+    }
+
+
+@router.put("/submission-deadline/{event_id}")
+async def update_submission_deadline(
+    event_id: int,
+    deadline: str = Query(..., description="New deadline in ISO format (e.g. 2026-08-30T23:59:59)"),
+    current_user: user_dependency = None,
+    db: Session = Depends(get_db),
+    auth_dependency: Auth = Depends(get_auth_dep),
+):
+    """Admin endpoint: update the abstract submission deadline for an event."""
+    auth_dependency.secure_access("VIEW_ABSTRACTS", current_user["user_id"])
+
+    from models.models import Event
+    from datetime import datetime as _dt
+    event = db.query(Event).filter(Event.id == event_id, Event.deleted_at.is_(None)).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    try:
+        deadline_dt = _dt.fromisoformat(deadline)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid deadline format. Use ISO format (e.g. 2026-08-30T23:59:59)")
+
+    event.abstract_submission_deadline = deadline_dt
+    event.abstract_submissions_open = True
+    db.commit()
+    db.refresh(event)
+
+    return {
+        "event_id": event.id,
+        "abstract_submissions_open": bool(event.abstract_submissions_open),
+        "deadline": event.abstract_submission_deadline.isoformat() if event.abstract_submission_deadline else None,
+        "message": f"Deadline updated to {deadline_dt.strftime('%d %B %Y %H:%M')}.",
     }
 

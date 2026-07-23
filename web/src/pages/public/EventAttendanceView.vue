@@ -99,8 +99,8 @@ import api from '@/plugins/axios'
 const route = useRoute()
 const eventId = Number(route.params.id)
 
-const primaryColor = ref('#0095B6')
-const secondaryColor = ref('#F7941D')
+const primaryColor = ref('#1a1d56')
+const secondaryColor = ref('#f59d08')
 const event = ref(null)
 
 const participantId = ref('')

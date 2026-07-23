@@ -16,12 +16,12 @@
         v-model="search"
         type="text"
         placeholder="Search users..."
-        class="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       />
       <router-link
         :to="{ name: 'AddUser' }"
         v-if="canAddUser"
-        class="bg-[#0095B6] hover:bg-[#007B97] text-white px-6 py-2 rounded-xl transition"
+        class="bg-[#1a1d56] hover:bg-[#007B97] text-white px-6 py-2 rounded-xl transition"
       >
         + Add User
       </router-link>
@@ -68,7 +68,7 @@
                   <router-link
                     v-if="canViewUser"
                     :to="{ name: 'AdminUserPerspective', params: { id: user.id } }"
-                    class="text-gray-500 hover:text-[#0095B6]"
+                    class="text-gray-500 hover:text-[#1a1d56]"
                     title="View as user"
                   >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +119,7 @@
           <select
             id="perPage"
             v-model="perPage"
-            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#0095B6]"
+            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1a1d56]"
           >
             <option :value="10">10</option>
             <option :value="25">25</option>

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <!-- Header -->
-    <Header />
+    <Header v-if="route.name !== 'AbstractSubmission'" />
 
     <!-- Main Content -->
     <main class="flex flex-col flex-1 p-4 sm:p-6 lg:p-8">
@@ -11,7 +11,7 @@
     </main>
 
     <!-- Footer — hidden on the Contact page -->
-    <Footer v-if="route.name !== 'Contact'" />
+    <Footer v-if="route.name !== 'Contact' && route.name !== 'AbstractSubmission'" />
   </div>
 </template>
 

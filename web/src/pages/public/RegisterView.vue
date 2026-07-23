@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-gray-50">
 
     <!-- ─── Hero Banner ──────────────────────────────────────────────────────── -->
-    <section v-if="event" class="relative overflow-hidden text-white" style="background: linear-gradient(135deg, #0095B6 0%, #007A96 60%, #005F75 100%);">
-      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-10" style="background:#F7941D;"></div>
-      <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full opacity-10" style="background:#F7941D;"></div>
+    <section v-if="event" class="relative overflow-hidden text-white" style="background: linear-gradient(135deg, #1a1d56 0%, #171a4d 60%, #131540 100%);">
+      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full opacity-10" style="background:#f59d08;"></div>
+      <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full opacity-10" style="background:#f59d08;"></div>
       <div class="relative z-10 max-w-4xl mx-auto px-6 py-12 text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-medium mb-4">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +49,7 @@
             <div
               class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300"
               :class="currentStep > i ? 'text-white shadow-md' : currentStep === i ? 'text-white shadow-lg' : 'bg-gray-200 text-gray-400'"
-              :style="currentStep >= i ? { backgroundColor: '#0095B6' } : {}"
+              :style="currentStep >= i ? { backgroundColor: '#1a1d56' } : {}"
             >
               <svg v-if="currentStep > i" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
@@ -57,13 +57,13 @@
               <span v-else>{{ i + 1 }}</span>
             </div>
             <span class="text-xs mt-1.5 font-medium hidden sm:block"
-              :class="currentStep >= i ? 'text-[#0095B6]' : 'text-gray-400'">
+              :class="currentStep >= i ? 'text-[#1a1d56]' : 'text-gray-400'">
               {{ step }}
             </span>
           </div>
           <div v-if="i < steps.length - 1"
             class="w-16 sm:w-20 h-0.5 mb-5 mx-1 transition-all duration-500"
-            :style="{ backgroundColor: currentStep > i ? '#0095B6' : '#e5e7eb' }">
+            :style="{ backgroundColor: currentStep > i ? '#1a1d56' : '#e5e7eb' }">
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
         <transition name="slide-fade" mode="out-in">
         <div v-if="currentStep === 0" key="step0" class="bg-white rounded-2xl shadow-sm p-7 space-y-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#0095B6;">
+            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#1a1d56;">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
               </svg>
@@ -148,7 +148,7 @@
         <transition name="slide-fade" mode="out-in">
         <div v-if="currentStep === 1" key="step1" class="bg-white rounded-2xl shadow-sm p-7 space-y-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#F7941D;">
+            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#f59d08;">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
@@ -212,7 +212,7 @@
         <transition name="slide-fade" mode="out-in">
         <div v-if="currentStep === 2" key="step2" class="bg-white rounded-2xl shadow-sm p-7 space-y-5">
           <div class="flex items-center gap-3 mb-2">
-            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#0095B6;">
+            <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#1a1d56;">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
@@ -250,8 +250,8 @@
             <div class="grid gap-2 sm:grid-cols-2">
               <label v-for="opt in participationOptions" :key="opt.value"
                 class="flex items-start gap-3 p-3.5 rounded-xl border-2 cursor-pointer transition-all"
-                :class="participation_role === opt.value ? 'border-[#0095B6] bg-blue-50/40' : 'border-gray-200 hover:border-gray-300'">
-                <input type="radio" v-model="participation_role" :value="opt.value" class="mt-0.5 accent-[#0095B6] flex-shrink-0" />
+                :class="participation_role === opt.value ? 'border-[#1a1d56] bg-blue-50/40' : 'border-gray-200 hover:border-gray-300'">
+                <input type="radio" v-model="participation_role" :value="opt.value" class="mt-0.5 accent-[#1a1d56] flex-shrink-0" />
                 <p class="text-sm font-medium text-gray-800 leading-snug">{{ opt.label }}</p>
               </label>
             </div>
@@ -276,7 +276,7 @@
         <div v-if="currentStep === 3 && !registrationDone" key="step3" class="space-y-5">
           <div class="bg-white rounded-2xl shadow-sm p-7">
             <div class="flex items-center gap-3 mb-5">
-              <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#F7941D;">
+              <div class="h-9 w-9 rounded-xl flex items-center justify-center" style="background-color:#f59d08;">
                 <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                 </svg>
@@ -291,7 +291,7 @@
               <div class="rounded-xl bg-gray-50 p-4 text-sm">
                 <div class="flex items-center justify-between mb-2">
                   <p class="text-xs font-semibold uppercase tracking-wide text-gray-400">Personal</p>
-                  <button type="button" @click="currentStep = 0" class="text-xs text-[#0095B6] hover:underline">Edit</button>
+                  <button type="button" @click="currentStep = 0" class="text-xs text-[#1a1d56] hover:underline">Edit</button>
                 </div>
                 <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
                   <span class="text-gray-500">Name</span>
@@ -303,7 +303,7 @@
               <div class="rounded-xl bg-gray-50 p-4 text-sm">
                 <div class="flex items-center justify-between mb-2">
                   <p class="text-xs font-semibold uppercase tracking-wide text-gray-400">Contact</p>
-                  <button type="button" @click="currentStep = 1" class="text-xs text-[#0095B6] hover:underline">Edit</button>
+                  <button type="button" @click="currentStep = 1" class="text-xs text-[#1a1d56] hover:underline">Edit</button>
                 </div>
                 <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
                   <span class="text-gray-500">Email</span>
@@ -317,7 +317,7 @@
               <div class="rounded-xl bg-gray-50 p-4 text-sm">
                 <div class="flex items-center justify-between mb-2">
                   <p class="text-xs font-semibold uppercase tracking-wide text-gray-400">Professional</p>
-                  <button type="button" @click="currentStep = 2" class="text-xs text-[#0095B6] hover:underline">Edit</button>
+                  <button type="button" @click="currentStep = 2" class="text-xs text-[#1a1d56] hover:underline">Edit</button>
                 </div>
                 <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
                   <span class="text-gray-500">Profession</span>
@@ -352,7 +352,7 @@
               <!-- Pay now (only option) -->
               <button type="button" :disabled="isSubmitting" @click="handleRegister(true)"
                 class="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-white text-sm shadow-lg transition hover:opacity-90 disabled:opacity-60"
-                style="background-color:#0095B6;">
+                style="background-color:#1a1d56;">
                 <svg v-if="isSubmitting && payNow" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -409,7 +409,7 @@
               brought back here to confirm your details.<br/><br/>
               If the popup was blocked,
               <a :href="paymentUrl" target="_blank" rel="noopener"
-                class="font-semibold underline" style="color:#0095B6;">click here to open it</a>.
+                class="font-semibold underline" style="color:#1a1d56;">click here to open it</a>.
             </p>
           </div>
 
@@ -424,7 +424,7 @@
 
           <router-link to="/login"
             class="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white text-sm shadow-lg transition hover:opacity-90 mt-2"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
             </svg>
@@ -438,7 +438,7 @@
       <!-- Login link -->
       <p class="text-center text-sm text-gray-500 mt-8">
         Already have an account?
-        <router-link to="/login" class="font-semibold hover:underline" style="color:#0095B6;">Sign in</router-link>
+        <router-link to="/login" class="font-semibold hover:underline" style="color:#1a1d56;">Sign in</router-link>
       </p>
     </section>
   </div>
@@ -597,10 +597,10 @@ onMounted(async () => {
   @apply block text-sm font-medium text-gray-700 mb-1.5;
 }
 .field-input {
-  @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white transition focus:outline-none focus:ring-2 focus:ring-[#0095B6] focus:border-transparent;
+  @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white transition focus:outline-none focus:ring-2 focus:ring-[#1a1d56] focus:border-transparent;
 }
 .field-input-icon {
-  @apply w-full border border-gray-200 rounded-xl py-2.5 text-sm bg-white transition focus:outline-none focus:ring-2 focus:ring-[#0095B6] focus:border-transparent;
+  @apply w-full border border-gray-200 rounded-xl py-2.5 text-sm bg-white transition focus:outline-none focus:ring-2 focus:ring-[#1a1d56] focus:border-transparent;
   padding-left: 2.75rem;
   padding-right: 1rem;
 }
@@ -609,7 +609,7 @@ onMounted(async () => {
 }
 .btn-primary {
   @apply flex items-center px-6 py-2.5 rounded-full font-semibold text-white text-sm shadow transition hover:opacity-90;
-  background-color: #0095B6;
+  background-color: #1a1d56;
 }
 .btn-secondary {
   @apply flex items-center px-6 py-2.5 rounded-full font-semibold text-sm border-2 border-gray-200 text-gray-600 transition hover:border-gray-300 hover:bg-gray-50;

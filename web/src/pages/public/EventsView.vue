@@ -4,7 +4,7 @@
     <div class="mb-6">
       <h1 class="text-3xl font-bold text-gray-800">Discover Upcoming Events</h1>
       <p class="text-sm text-gray-600 mt-1">
-        Join impactful events from ECSA-HC and its diverse ecosystem of colleges, clusters, projects, and programmes
+        Join impactful events from CANECSA and its diverse ecosystem of colleges, clusters, projects, and programmes
       </p>
     </div>
 

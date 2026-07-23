@@ -12,7 +12,7 @@
       <div class="flex items-center gap-2">
         <!-- Auto-refresh indicator -->
         <div class="flex items-center gap-1.5 text-xs text-gray-400">
-          <span class="w-2 h-2 rounded-full animate-pulse" style="background-color:#0095B6;"></span>
+          <span class="w-2 h-2 rounded-full animate-pulse" style="background-color:#1a1d56;"></span>
           Live · refreshes every 30s
         </div>
         <button @click="load" :disabled="loading"
@@ -30,7 +30,7 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="bg-white rounded-2xl shadow-sm p-5 flex items-center gap-4">
         <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color:#e6f7fb;">
-          <svg class="w-5 h-5" style="color:#0095B6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5" style="color:#1a1d56;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
           </svg>
@@ -89,7 +89,7 @@
           :class="hours === opt.value
             ? 'text-white'
             : 'bg-gray-100 text-gray-500 hover:bg-gray-200'"
-          :style="hours === opt.value ? 'background-color:#0095B6;' : ''">
+          :style="hours === opt.value ? 'background-color:#1a1d56;' : ''">
           {{ opt.label }}
         </button>
       </div>
@@ -295,7 +295,7 @@ function initials(name) {
   return (parts[0]?.[0] || '') + (parts[1]?.[0] || '')
 }
 
-const AVATAR_COLORS = ['#0095B6','#27ae60','#8e44ad','#e67e22','#c0392b','#007A96','#F7941D']
+const AVATAR_COLORS = ['#1a1d56','#27ae60','#8e44ad','#e67e22','#c0392b','#171a4d','#f59d08']
 function avatarColor(name) {
   let hash = 0
   for (const ch of (name || '')) hash = (hash * 31 + ch.charCodeAt(0)) & 0xffffffff

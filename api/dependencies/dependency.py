@@ -13,16 +13,19 @@ class Dependency:
         self.db = db
 
     def log_activity(self, user_id, action, target, ip_address, additional_data):
-        create_log = ActivityLog(
-            user_id=user_id,
-            action=action,
-            target=target,
-            ip_address=ip_address,
-            additional_data=additional_data,
-        )
-        self.db.add(create_log)
-        self.db.commit()
-        self.db.refresh(create_log)
+        try:
+            create_log = ActivityLog(
+                user_id=user_id,
+                action=action,
+                target=target,
+                ip_address=ip_address,
+                additional_data=additional_data,
+            )
+            self.db.add(create_log)
+            self.db.commit()
+            self.db.refresh(create_log)
+        except Exception:
+            self.db.rollback()
 
     def request_ip(self, request):
         client_ip = request.client.host

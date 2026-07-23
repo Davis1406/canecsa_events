@@ -68,7 +68,8 @@ const routes = [
     path: "/",
     component: DefaultLayout,
     children: [
-      { path: "", name: "Home", component: HomeView },
+      { path: "", name: "Home", redirect: "/abstract-submission" },
+      { path: "abstract-submission", name: "AbstractSubmission", component: AbstractSubmissionView },
       { path: "events", name: "Events", component: EventsView },
       { path: "event/:id", name: "Event", component: EventView },
       { path: "login", name: "Login", component: LoginView },
@@ -83,7 +84,6 @@ const routes = [
         component: ResetPasswordView,
       },
       { path: "contact", name: "Contact", component: ContactView },
-      { path: "abstract-submission", name: "AbstractSubmission", component: AbstractSubmissionView },
       { path: "register/:id", name: "Register", component: RegisterView },
       {
         path: "register-account",
@@ -306,7 +306,7 @@ const routes = [
   },
   {
     path: "/:catchAll(.*)",
-    redirect: "/",
+    redirect: "/abstract-submission",
   },
 ];
 

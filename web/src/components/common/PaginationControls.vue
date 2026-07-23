@@ -6,7 +6,7 @@
           id="perPage"
           v-model.number="localPerPage"
           @change="updatePerPage"
-          class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#0095B6]"
+          class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1a1d56]"
         >
           <option :value="5">5</option>
           <option :value="10">10</option>

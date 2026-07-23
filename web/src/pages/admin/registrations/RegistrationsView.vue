@@ -14,18 +14,18 @@
         v-model="search"
         type="text"
         placeholder="Search by name, email or phone..."
-        class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       />
       <select
         v-model="selectedEventId"
-        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       >
         <option :value="null">All Events</option>
         <option v-for="e in events" :key="e.id" :value="e.id">{{ e.event }}</option>
       </select>
       <select
         v-model="paidFilter"
-        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       >
         <option value="all">All Payment Status</option>
         <option value="true">Paid</option>
@@ -34,7 +34,7 @@
       <!-- Proof filter -->
       <select
         v-model="proofFilter"
-        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       >
         <option value="all">All Proof Status</option>
         <option value="with_proof">Has Proof</option>
@@ -164,7 +164,7 @@
           <label class="text-sm">Show</label>
           <select
             v-model="perPage"
-            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#0095B6]"
+            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1a1d56]"
           >
             <option :value="10">10</option>
             <option :value="25">25</option>
@@ -266,7 +266,7 @@
             <p class="text-sm text-gray-500">Preview not available for this file type.</p>
             <a :href="proofUrl(proofRegistration.payment_proof)" target="_blank"
               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
@@ -279,7 +279,7 @@
         <!-- Footer actions -->
         <div class="flex items-center justify-between px-5 py-4 border-t border-gray-100 flex-shrink-0 gap-3">
           <a :href="proofUrl(proofRegistration.payment_proof)" target="_blank"
-            class="inline-flex items-center gap-1.5 text-sm text-[#0095B6] hover:underline font-medium">
+            class="inline-flex items-center gap-1.5 text-sm text-[#1a1d56] hover:underline font-medium">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>

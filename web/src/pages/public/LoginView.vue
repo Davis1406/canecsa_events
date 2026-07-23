@@ -75,13 +75,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import api from '@/plugins/axios'
 
 const router = useRouter()
 const auth = useAuthStore()
+
+onMounted(() => {
+  if (auth.isAuthenticated) {
+    const isAdmin = auth.hasPermission('ADMIN_DASHBOARD')
+    const isFinanceOfficer = !isAdmin && auth.hasPermission('VERIFY_PAYMENT')
+    if (isAdmin) {
+      router.replace({ name: 'AdminDashboard' })
+    } else if (isFinanceOfficer) {
+      router.replace({ name: 'AdminEvents' })
+    } else {
+      router.replace({ name: 'MyDashboard' })
+    }
+  }
+})
 
 const email = ref('')
 const password = ref('')

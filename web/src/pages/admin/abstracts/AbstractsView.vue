@@ -36,7 +36,7 @@
         <!-- All Presentations -->
         <button @click="openPresentations"
           class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition hover:opacity-90"
-          style="background-color:#fff; color:#0095B6; border:1.5px solid #b3e4f0;">
+          style="background-color:#fff; color:#1a1d56; border:1.5px solid #b3e4f0;">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm4 14h8"/>
@@ -97,7 +97,7 @@
         <!-- PDF Book of Abstracts -->
         <button @click="exportPdf" :disabled="exportingPdf || loading || total === 0"
           class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition hover:opacity-90 disabled:opacity-50"
-          style="background-color:#fff; color:#0095B6; border:1.5px solid #0095B6;">
+          style="background-color:#fff; color:#1a1d56; border:1.5px solid #1a1d56;">
           <svg v-if="!exportingPdf" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -112,7 +112,7 @@
         <!-- Excel export -->
         <button @click="exportExcel" :disabled="exporting || loading || total === 0"
           class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
-          style="background-color:#0095B6;">
+          style="background-color:#1a1d56;">
           <svg v-if="!exporting" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
@@ -146,11 +146,11 @@
       <div class="relative" ref="trackPickerRef">
         <button type="button" @click="trackPickerOpen = !trackPickerOpen"
           class="input w-52 flex items-center justify-between gap-2 text-left"
-          :class="filterTracks.length ? 'border-[#0095B6] bg-[#e6f7fb] text-[#006f87]' : 'text-gray-500'">
+          :class="filterTracks.length ? 'border-[#1a1d56] bg-[#e6f7fb] text-[#006f87]' : 'text-gray-500'">
           <span class="truncate text-sm">
-            {{ filterTracks.length === 0 ? 'All Tracks'
-               : filterTracks.length === 1 ? tracks.find(t => t.id === filterTracks[0])?.code || '1 track'
-               : `${filterTracks.length} tracks` }}
+            {{ filterTracks.length === 0 ? 'All Sub-Themes'
+               : filterTracks.length === 1 ? tracks.find(t => t.id === filterTracks[0])?.code || '1 sub-theme'
+               : `${filterTracks.length} sub-themes` }}
           </span>
           <svg class="w-4 h-4 flex-shrink-0 transition-transform" :class="trackPickerOpen ? 'rotate-180' : ''"
             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +160,7 @@
         <div v-if="trackPickerOpen"
           class="absolute top-full left-0 mt-1 z-20 bg-white border border-gray-200 rounded-xl shadow-lg w-64 max-h-72 overflow-y-auto">
           <div class="flex items-center justify-between px-3 py-2 border-b border-gray-100">
-            <span class="text-xs font-semibold text-gray-500 uppercase">Tracks</span>
+            <span class="text-xs font-semibold text-gray-500 uppercase">Sub-Themes</span>
             <button v-if="filterTracks.length" @click="filterTracks = []"
               class="text-xs text-red-400 hover:text-red-600 font-medium">Clear</button>
           </div>
@@ -168,7 +168,7 @@
             class="flex items-center gap-2.5 px-3 py-2 hover:bg-[#e6f7fb] cursor-pointer text-sm"
             :class="filterTracks.includes(t.id) ? 'bg-[#e6f7fb]' : ''">
             <input type="checkbox" :value="t.id" v-model="filterTracks"
-              class="w-4 h-4 rounded" style="accent-color:#0095B6;" />
+              class="w-4 h-4 rounded" style="accent-color:#1a1d56;" />
             <span class="font-medium" style="color:#006f87;">{{ t.code }}</span>
             <span class="text-gray-400 text-xs truncate flex-1">{{ t.title }}</span>
           </label>
@@ -226,7 +226,7 @@
         </div>
         <button @click="openBulkModal"
           class="inline-flex items-center gap-2 px-4 py-2 bg-white font-semibold text-sm rounded-xl hover:bg-gray-50 transition flex-shrink-0"
-          style="color:#0095B6;">
+          style="color:#1a1d56;">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
@@ -235,7 +235,7 @@
         </button>
         <button @click="openBulkStatusModal"
           class="inline-flex items-center gap-2 px-4 py-2 bg-white font-semibold text-sm rounded-xl hover:bg-gray-50 transition flex-shrink-0"
-          style="color:#0095B6;">
+          style="color:#1a1d56;">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -279,7 +279,7 @@
               <span>{{ Math.round(bulkStatusModal.progress / bulkStatusModal.total * 100) }}%</span>
             </div>
             <div class="w-full bg-gray-100 rounded-full h-2">
-              <div class="h-2 rounded-full transition-all" style="background-color:#0095B6;"
+              <div class="h-2 rounded-full transition-all" style="background-color:#1a1d56;"
                 :style="{ width: `${Math.round(bulkStatusModal.progress / bulkStatusModal.total * 100)}%` }"></div>
             </div>
           </div>
@@ -302,7 +302,7 @@
           <button v-if="!bulkStatusModal.done" @click="runBulkStatusChange"
             :disabled="bulkStatusModal.updating"
             class="inline-flex items-center gap-2 px-5 py-2 text-sm text-white rounded-xl font-semibold transition disabled:opacity-50"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             {{ bulkStatusModal.updating ? 'Updating…' : 'Update Status' }}
           </button>
         </div>
@@ -320,13 +320,13 @@
             <!-- Select-all checkbox -->
             <th class="px-3 py-3 w-8">
               <input type="checkbox" class="w-4 h-4 cursor-pointer"
-                style="accent-color:#0095B6;"
+                style="accent-color:#1a1d56;"
                 :checked="paginated.length > 0 && selectedIds.size === paginated.length"
                 :indeterminate="selectedIds.size > 0 && selectedIds.size < paginated.length"
                 @change="toggleSelectAll" />
             </th>
             <th class="px-4 py-3 text-left">Title</th>
-            <th class="px-4 py-3 text-left hidden lg:table-cell" title="Hover a track badge to see full title">Track</th>
+            <th class="px-4 py-3 text-left hidden lg:table-cell" title="Hover a sub-theme badge to see full title">Sub-Theme</th>
             <th class="px-4 py-3 text-left hidden md:table-cell">First Author</th>
             <th class="px-4 py-3 text-left hidden lg:table-cell">Type</th>
             <th class="px-4 py-3 text-left">Status</th>
@@ -341,7 +341,7 @@
             <!-- Row checkbox -->
             <td class="px-3 py-3">
               <input type="checkbox" class="w-4 h-4 cursor-pointer"
-                style="accent-color:#0095B6;"
+                style="accent-color:#1a1d56;"
                 :checked="selectedIds.has(abs.id)"
                 @change="toggleRow(abs)" />
             </td>
@@ -369,7 +369,7 @@
             <td class="px-4 py-3 hidden lg:table-cell">
               <div v-if="abs.reviewer_assignments?.length" class="relative inline-block group">
                 <span class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium border cursor-default"
-                  style="color:#0095B6; background-color:#e6f7fb; border-color:#b3e4f0;">
+                  style="color:#1a1d56; background-color:#e6f7fb; border-color:#b3e4f0;">
                   <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -397,7 +397,7 @@
                   :class="abs.reviewer_assignments?.length
                     ? 'border-gray-200 hover:bg-[#e6f7fb]'
                     : 'border-gray-200 text-gray-500 hover:bg-gray-50'"
-                  :style="abs.reviewer_assignments?.length ? 'color:#0095B6;' : ''"
+                  :style="abs.reviewer_assignments?.length ? 'color:#1a1d56;' : ''"
                   title="Assign reviewer">
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -443,8 +443,8 @@
             <span v-if="p === '...'" class="px-2 py-1 text-gray-400">…</span>
             <button v-else @click="goToPage(p)"
               class="px-3 py-1 rounded border transition"
-              :class="p === page ? 'text-white border-[#0095B6]' : 'hover:bg-gray-50'"
-              :style="p === page ? 'background-color:#0095B6;' : ''">
+              :class="p === page ? 'text-white border-[#1a1d56]' : 'hover:bg-gray-50'"
+              :style="p === page ? 'background-color:#1a1d56;' : ''">
               {{ p }}
             </button>
           </template>
@@ -504,8 +504,8 @@
               Add Reviewer
             </label>
             <!-- Search input -->
-            <div class="relative flex items-center border rounded-xl overflow-hidden transition-colors focus-within:ring-2 focus-within:ring-[#0095B6] mb-1"
-              :class="quickModal.search ? 'border-[#0095B6]' : 'border-gray-300'">
+            <div class="relative flex items-center border rounded-xl overflow-hidden transition-colors focus-within:ring-2 focus-within:ring-[#1a1d56] mb-1"
+              :class="quickModal.search ? 'border-[#1a1d56]' : 'border-gray-300'">
               <div class="pl-3 flex-shrink-0">
                 <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -538,7 +538,7 @@
                   class="px-4 py-2.5 text-sm flex items-center gap-3 cursor-pointer transition-colors"
                   :class="quickModal.selected?.id === u.id ? 'bg-[#e6f7fb]' : 'hover:bg-[#e6f7fb]'">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase"
-                    style="background-color:#0095B6;">
+                    style="background-color:#1a1d56;">
                     {{ u.firstname?.[0] }}{{ u.lastname?.[0] }}
                   </div>
                   <div class="flex-1 min-w-0">
@@ -546,7 +546,7 @@
                     <p class="text-xs text-gray-400 truncate">{{ u.email }}</p>
                   </div>
                   <span v-if="quickModal.selected?.id === u.id"
-                    class="text-xs font-bold flex-shrink-0" style="color:#0095B6;">✓</span>
+                    class="text-xs font-bold flex-shrink-0" style="color:#1a1d56;">✓</span>
                 </div>
               </div>
             </div>
@@ -563,7 +563,7 @@
           </button>
           <button @click="quickAssign" :disabled="!quickModal.selected || quickModal.assigning"
             class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             <svg v-if="quickModal.assigning" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -587,7 +587,7 @@
           <div class="flex items-center gap-3">
             <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0"
               style="background-color:#e6f7fb;">
-              <svg class="w-5 h-5" style="color:#0095B6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-5 h-5" style="color:#1a1d56;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
@@ -617,7 +617,7 @@
                 <span class="text-gray-400 flex-shrink-0 font-mono">#{{ abs.id }}</span>
                 <span class="font-medium text-gray-700 truncate flex-1">{{ abs.title }}</span>
                 <span v-if="abs.reviewer_assignments?.length"
-                  class="flex-shrink-0 text-xs font-medium" style="color:#0095B6;">
+                  class="flex-shrink-0 text-xs font-medium" style="color:#1a1d56;">
                   {{ abs.reviewer_assignments.length }} reviewer{{ abs.reviewer_assignments.length !== 1 ? 's' : '' }}
                 </span>
                 <button @click="selectedItems = new Map([...selectedItems].filter(([k]) => k !== abs.id))"
@@ -632,7 +632,7 @@
               Reviewers to assign
               <span v-if="bulkModal.reviewers.length"
                 class="ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold"
-                style="background-color:#e6f7fb; color:#0095B6;">
+                style="background-color:#e6f7fb; color:#1a1d56;">
                 {{ bulkModal.reviewers.length }}
               </span>
             </p>
@@ -644,13 +644,13 @@
                 style="background-color:#e6f7fb; color:#006f87; border-color:#b3e4f0;">
                 {{ r.firstname }} {{ r.lastname }}
                 <button @click="removeBulkReviewer(r.id)"
-                  class="leading-none hover:text-red-500 transition-colors" style="color:#0095B6;">✕</button>
+                  class="leading-none hover:text-red-500 transition-colors" style="color:#1a1d56;">✕</button>
               </span>
             </div>
 
             <!-- Search input -->
-            <div class="relative flex items-center border rounded-xl overflow-hidden transition-colors focus-within:ring-2 focus-within:ring-[#0095B6] mb-1"
-              :class="bulkModal.search ? 'border-[#0095B6]' : 'border-gray-300'">
+            <div class="relative flex items-center border rounded-xl overflow-hidden transition-colors focus-within:ring-2 focus-within:ring-[#1a1d56] mb-1"
+              :class="bulkModal.search ? 'border-[#1a1d56]' : 'border-gray-300'">
               <div class="pl-3 flex-shrink-0">
                 <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -684,7 +684,7 @@
                     ? 'bg-[#e6f7fb] cursor-default'
                     : 'hover:bg-[#e6f7fb] cursor-pointer'">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase"
-                    style="background-color:#0095B6;">
+                    style="background-color:#1a1d56;">
                     {{ u.firstname?.[0] }}{{ u.lastname?.[0] }}
                   </div>
                   <div class="flex-1 min-w-0">
@@ -692,7 +692,7 @@
                     <p class="text-xs text-gray-400 truncate">{{ u.email }}</p>
                   </div>
                   <span v-if="bulkModal.reviewers.find(r => r.id === u.id)"
-                    class="text-xs font-bold flex-shrink-0" style="color:#0095B6;">✓ Added</span>
+                    class="text-xs font-bold flex-shrink-0" style="color:#1a1d56;">✓ Added</span>
                   <span v-else class="text-xs text-gray-300 flex-shrink-0">+ Add</span>
                 </div>
               </div>
@@ -720,7 +720,7 @@
             </div>
             <div class="w-full bg-gray-100 rounded-full h-2">
               <div class="h-2 rounded-full transition-all duration-300"
-                style="background-color:#0095B6;"
+                style="background-color:#1a1d56;"
                 :style="{ width: `${Math.round(bulkModal.progress / bulkModal.total * 100)}%` }">
               </div>
             </div>
@@ -738,7 +738,7 @@
             @click="runBulkAssign"
             :disabled="bulkModal.assigning || bulkModal.reviewers.length === 0 || selectedIds.size === 0"
             class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             <svg v-if="bulkModal.assigning" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -853,7 +853,7 @@
             <p v-if="tmplModal.error" class="text-red-500 text-xs">{{ tmplModal.error }}</p>
             <button @click="uploadTemplate" :disabled="tmplModal.uploading || !tmplModal.file || !tmplModal.name"
               class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg v-if="tmplModal.uploading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -888,7 +888,7 @@
                   <div class="flex items-center gap-2">
                     <button @click="saveTemplateEdit" :disabled="editTemplate.saving"
                       class="text-xs font-semibold px-3 py-1.5 rounded-lg text-white disabled:opacity-50"
-                      style="background-color:#0095B6;">
+                      style="background-color:#1a1d56;">
                       {{ editTemplate.saving ? 'Saving…' : 'Save' }}
                     </button>
                     <button @click="editTemplate.id = null" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500">
@@ -923,7 +923,7 @@
                   </button>
                   <a :href="t.url" target="_blank"
                     class="text-xs font-medium px-2 py-1 rounded-lg border transition flex-shrink-0"
-                    style="color:#0095B6; border-color:#b3e4f0; background:#e6f7fb;">
+                    style="color:#1a1d56; border-color:#b3e4f0; background:#e6f7fb;">
                     Download
                   </a>
                   <button @click="deleteTemplate(t)" class="text-red-400 hover:text-red-600 flex-shrink-0">
@@ -986,7 +986,7 @@
               </div>
               <a :href="fileUrl(p.url)" target="_blank" @click.stop
                 class="text-xs font-medium px-2 py-1 rounded-lg border transition flex-shrink-0"
-                style="color:#0095B6; border-color:#b3e4f0; background:#e6f7fb;">
+                style="color:#1a1d56; border-color:#b3e4f0; background:#e6f7fb;">
                 Download
               </a>
             </div>
@@ -1134,7 +1134,7 @@
           <div v-if="notifyModal.singleAbstract"
             class="flex items-start gap-3 px-4 py-3 rounded-xl text-sm"
             style="background:#e6f7fb; border:1px solid #b3e4f0;">
-            <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#0095B6;">
+            <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#1a1d56;">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>
@@ -1166,7 +1166,7 @@
           <!-- Skip already notified (bulk only) -->
           <div v-if="!notifyModal.singleAbstract" class="flex items-start gap-3">
             <input type="checkbox" id="skipNotified" v-model="notifyModal.skipNotified"
-              class="mt-0.5 w-4 h-4 cursor-pointer rounded" style="accent-color:#0095B6;" />
+              class="mt-0.5 w-4 h-4 cursor-pointer rounded" style="accent-color:#1a1d56;" />
             <label for="skipNotified" class="text-sm text-gray-700 cursor-pointer">
               Skip already notified
               <span class="block text-xs text-gray-400 mt-0.5">Only send to accepted authors who haven't received this email yet.</span>
@@ -1225,7 +1225,7 @@
         <div class="flex items-center justify-between px-5 py-4 border-b flex-shrink-0">
           <div class="flex items-center gap-3">
             <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color:#fffbeb;">
-              <svg class="w-5 h-5" style="color:#F7941D;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-5 h-5" style="color:#f59d08;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
               </svg>
@@ -1271,8 +1271,8 @@
           <div v-if="regReminderModal.step === 'preview'" class="space-y-4">
             <!-- Summary badges -->
             <div class="grid grid-cols-3 gap-3">
-              <div class="rounded-xl p-3 text-center" style="background:#f0f9fb; border:1px solid #b3e4f0;">
-                <p class="text-2xl font-bold" style="color:#0095B6;">{{ regReminderModal.preview.total_authors }}</p>
+              <div class="rounded-xl p-3 text-center" style="background:#eef7fc; border:1px solid #b3e4f0;">
+                <p class="text-2xl font-bold" style="color:#1a1d56;">{{ regReminderModal.preview.total_authors }}</p>
                 <p class="text-xs text-gray-500 mt-0.5">Total Authors</p>
               </div>
               <div class="rounded-xl p-3 text-center" style="background:#fffbeb; border:1px solid #fcd34d;">
@@ -1372,7 +1372,7 @@
               @click="loadRegReminderPreview"
               :disabled="regReminderModal.loading || !regReminderModal.eventId"
               class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg v-if="regReminderModal.loading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -1384,7 +1384,7 @@
               @click="runRegReminder"
               :disabled="regReminderModal.sending || regReminderModal.preview.to_send.length === 0"
               class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-              style="background-color:#F7941D;">
+              style="background-color:#f59d08;">
               <svg v-if="regReminderModal.sending" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -1439,8 +1439,8 @@
               </select>
               <p class="text-xs text-gray-400 mt-1">One email per author — someone with multiple rejected abstracts is emailed once.</p>
             </div>
-            <div class="flex items-start gap-3 px-4 py-3 rounded-xl text-sm" style="background:#f0f9fb; border:1px solid #b3e4f0;">
-              <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#0095B6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="flex items-start gap-3 px-4 py-3 rounded-xl text-sm" style="background:#eef7fc; border:1px solid #b3e4f0;">
+              <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#1a1d56;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
               <p class="text-xs leading-relaxed" style="color:#006f87;">
@@ -1455,8 +1455,8 @@
           <div v-if="rejectNotifyModal.step === 'preview'" class="space-y-4">
             <!-- Summary badges -->
             <div class="grid grid-cols-3 gap-3">
-              <div class="rounded-xl p-3 text-center" style="background:#f0f9fb; border:1px solid #b3e4f0;">
-                <p class="text-2xl font-bold" style="color:#0095B6;">{{ rejectNotifyModal.preview.total_rejected_abstracts }}</p>
+              <div class="rounded-xl p-3 text-center" style="background:#eef7fc; border:1px solid #b3e4f0;">
+                <p class="text-2xl font-bold" style="color:#1a1d56;">{{ rejectNotifyModal.preview.total_rejected_abstracts }}</p>
                 <p class="text-xs text-gray-500 mt-0.5">Rejected Abstracts</p>
               </div>
               <div class="rounded-xl p-3 text-center" style="background:#fef2f2; border:1px solid #fca5a5;">
@@ -1539,7 +1539,7 @@
               @click="loadRejectNotifyPreview"
               :disabled="rejectNotifyModal.loading || !rejectNotifyModal.eventId"
               class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg v-if="rejectNotifyModal.loading" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>

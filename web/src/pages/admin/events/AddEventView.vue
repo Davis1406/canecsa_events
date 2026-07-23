@@ -24,7 +24,7 @@
               v-model="newEvent.event"
               type="text"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newEvent.event" class="text-sm text-red-500 mt-1">Event name is required.</p>
           </div>
@@ -35,7 +35,7 @@
             <input
               v-model="newEvent.theme"
               type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
           </div>
 
@@ -45,7 +45,7 @@
             <textarea
               v-model="newEvent.description"
               rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             ></textarea>
           </div>
 
@@ -56,7 +56,7 @@
               v-model="newEvent.organizers"
               rows="3"
               placeholder="e.g. ECSA-HC Secretariat, Ministry of Health Kenya..."
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             ></textarea>
           </div>
 
@@ -71,7 +71,7 @@
                 v-model="newEvent.participation_info"
                 rows="5"
                 placeholder="e.g. Delegates – USD 800, Students – USD 400, Online – USD 200..."
-                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6] text-sm"
+                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56] text-sm"
               ></textarea>
             </div>
 
@@ -82,7 +82,7 @@
                 v-model="newEvent.logistics_info"
                 rows="5"
                 placeholder="e.g. Venue address, recommended hotels, visa requirements, transport options..."
-                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6] text-sm"
+                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56] text-sm"
               ></textarea>
             </div>
 
@@ -93,7 +93,7 @@
                 v-model="newEvent.sponsors_info"
                 rows="5"
                 placeholder="e.g. Gold Package – USD 10,000, Exhibition booth – USD 3,000..."
-                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6] text-sm"
+                class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56] text-sm"
               ></textarea>
             </div>
           </div>
@@ -104,7 +104,7 @@
             <input
               v-model="newEvent.start_date"
               type="date"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
           </div>
 
@@ -114,7 +114,7 @@
             <input
               v-model="newEvent.end_date"
               type="date"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
           </div>
 
@@ -124,7 +124,7 @@
             <input
               v-model="newEvent.location"
               type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
           </div>
 
@@ -133,7 +133,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Organizational Unit</label>
             <select
               v-model="newEvent.org_unit_id"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             >
               <option disabled value="0">Select Org Unit</option>
               <option v-for="unit in orgUnits" :key="unit.id" :value="unit.id">
@@ -147,7 +147,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
             <select
               v-model="newEvent.country_id"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             >
               <option disabled value="0">Select Country</option>
               <option v-for="country in countries" :key="country.id" :value="country.id">

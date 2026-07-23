@@ -84,7 +84,7 @@
           <button @click="goBack" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-xl transition">
             Back
           </button>
-          <button @click="editRole" class="bg-[#0095B6] hover:bg-[#007B97] text-white py-2 px-6 rounded-xl transition">
+          <button @click="editRole" class="bg-[#1a1d56] hover:bg-[#007B97] text-white py-2 px-6 rounded-xl transition">
             Edit
           </button>
         </div>

@@ -85,7 +85,7 @@
           </button>
           <button
             @click="editUser"
-            class="bg-[#0095B6] hover:bg-[#007B97] text-white py-2 px-6 rounded-xl transition"
+            class="bg-[#1a1d56] hover:bg-[#007B97] text-white py-2 px-6 rounded-xl transition"
           >
             Edit
           </button>

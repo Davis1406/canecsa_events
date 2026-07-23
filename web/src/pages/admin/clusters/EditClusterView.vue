@@ -17,14 +17,14 @@
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
             <input v-model="cluster.name" type="text" required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
           </div>
 
           <!-- Type -->
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
             <select v-model="cluster.type" required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
               <option disabled value="">Select a type</option>
               <option value="secretariat">Secretariat</option>
               <option value="college">College</option>
@@ -39,7 +39,7 @@
           <div class="w-full md:w-1/2">
             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea v-model="cluster.description" rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"></textarea>
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"></textarea>
           </div>
 
           <!-- Brand Colors -->
@@ -108,7 +108,7 @@ const route = useRoute()
 const router = useRouter()
 const clusterId = route.params.id
 
-const cluster = ref({ name: '', type: '', description: '', primary_color: '#0095B6', secondary_color: '#F7941D' })
+const cluster = ref({ name: '', type: '', description: '', primary_color: '#1a1d56', secondary_color: '#f59d08' })
 const existingLogo = ref(null)
 const logoFile = ref(null)
 const logoPreview = ref(null)
@@ -127,8 +127,8 @@ const fetchCluster = async () => {
     cluster.value = {
       ...response.data,
       type: response.data.type?.toLowerCase() || '',
-      primary_color: response.data.primary_color || '#0095B6',
-      secondary_color: response.data.secondary_color || '#F7941D',
+      primary_color: response.data.primary_color || '#1a1d56',
+      secondary_color: response.data.secondary_color || '#f59d08',
     }
     existingLogo.value = response.data.logo || null
   } catch (error) {

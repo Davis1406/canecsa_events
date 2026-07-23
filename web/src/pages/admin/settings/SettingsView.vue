@@ -16,9 +16,9 @@
         v-model="search"
         type="text"
         placeholder="Search clusters..."
-        class="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+        class="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
       />
-      <button class="bg-[#0095B6] hover:bg-[#007B97] text-white px-6 py-2 rounded-xl transition">
+      <button class="bg-[#1a1d56] hover:bg-[#007B97] text-white px-6 py-2 rounded-xl transition">
         + Add Cluster
       </button>
     </div>
@@ -92,7 +92,7 @@
           <select
             id="perPage"
             v-model="perPage"
-            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#0095B6]"
+            class="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1a1d56]"
           >
             <option :value="5">5</option>
             <option :value="10">10</option>

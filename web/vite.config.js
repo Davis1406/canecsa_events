@@ -4,6 +4,15 @@ import path from 'path' // 👈 make sure to import path
 
 export default defineConfig({
   plugins: [vue()],
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    setupFiles: ['./src/__tests__/setup.js'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+  },
   server: {
     host: true,   // expose on LAN (0.0.0.0) so phones can reach it
     port: 5174,

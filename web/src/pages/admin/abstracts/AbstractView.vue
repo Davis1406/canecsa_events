@@ -16,7 +16,7 @@
       </span>
       <button v-if="abstract" @click="openEdit"
         class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border transition flex-shrink-0"
-        style="color:#0095B6; border-color:#b3e4f0; background-color:#e6f7fb;">
+        style="color:#1a1d56; border-color:#b3e4f0; background-color:#e6f7fb;">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -56,7 +56,7 @@
           </select>
           <button @click="updateStatus"
             class="w-full px-4 py-2 text-white rounded-xl text-sm font-semibold hover:opacity-90 transition"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             Save Status
           </button>
           <p v-if="statusMsg" class="mt-2 text-green-600 text-xs text-center">{{ statusMsg }}</p>
@@ -68,7 +68,7 @@
             Reviewers
             <span v-if="abstract.reviewer_assignments.length"
               class="text-xs px-2 py-0.5 rounded-full font-semibold"
-              style="background-color:#e6f7fb; color:#0095B6;">
+              style="background-color:#e6f7fb; color:#1a1d56;">
               {{ abstract.reviewer_assignments.length }}
             </span>
           </h2>
@@ -103,8 +103,8 @@
             <button type="button" @click="toggleDropdown"
               class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl border text-sm text-left transition-colors"
               :class="dropdownOpen
-                ? 'border-[#0095B6] ring-2 ring-[#0095B6]/20'
-                : 'border-gray-200 hover:border-[#0095B6]/40'">
+                ? 'border-[#1a1d56] ring-2 ring-[#1a1d56]/20'
+                : 'border-gray-200 hover:border-[#1a1d56]/40'">
               <span v-if="selectedReviewer" class="font-medium text-gray-800 truncate">
                 {{ selectedReviewer.firstname }} {{ selectedReviewer.lastname }}
               </span>
@@ -149,7 +149,7 @@
                     : 'hover:bg-gray-50'">
                   <!-- Avatar initials -->
                   <div class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                    style="background-color:#0095B6;">
+                    style="background-color:#1a1d56;">
                     {{ u.firstname?.[0]?.toUpperCase() }}{{ u.lastname?.[0]?.toUpperCase() }}
                   </div>
                   <div class="min-w-0 flex-1">
@@ -157,7 +157,7 @@
                     <p class="text-xs text-gray-400 truncate">{{ u.email }}</p>
                   </div>
                   <svg v-if="selectedReviewer?.id === u.id"
-                    class="w-4 h-4 flex-shrink-0" style="color:#0095B6;"
+                    class="w-4 h-4 flex-shrink-0" style="color:#1a1d56;"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                   </svg>
@@ -173,14 +173,14 @@
             <span class="font-semibold flex-1 truncate" style="color:#006f87;">
               {{ selectedReviewer.firstname }} {{ selectedReviewer.lastname }}
             </span>
-            <span class="text-xs truncate" style="color:#0095B6;">{{ selectedReviewer.email }}</span>
+            <span class="text-xs truncate" style="color:#1a1d56;">{{ selectedReviewer.email }}</span>
             <button @click="selectedReviewer = null"
-              class="flex-shrink-0 hover:text-red-400 transition-colors" style="color:#0095B6;">✕</button>
+              class="flex-shrink-0 hover:text-red-400 transition-colors" style="color:#1a1d56;">✕</button>
           </div>
 
           <button @click="assignReviewer" :disabled="!selectedReviewer || assigning"
             class="mt-3 w-full px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-40 flex items-center justify-center gap-2"
-            style="background-color:#0095B6;">
+            style="background-color:#1a1d56;">
             <svg v-if="assigning" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -281,7 +281,7 @@
           <h2 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">
             Reviews
             <span class="text-xs px-2 py-0.5 rounded-full font-medium"
-              style="background-color:#e6f7fb; color:#0095B6;">
+              style="background-color:#e6f7fb; color:#1a1d56;">
               {{ completedReviews.length }}
             </span>
           </h2>
@@ -297,19 +297,19 @@
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
                 <div class="bg-gray-50 rounded-lg p-2 text-center">
                   <p class="text-xs text-gray-400">Relevance</p>
-                  <p class="text-lg font-bold" style="color:#0095B6;">{{ ra.review.relevance_score }}<span class="text-xs text-gray-400">/5</span></p>
+                  <p class="text-lg font-bold" style="color:#1a1d56;">{{ ra.review.relevance_score }}<span class="text-xs text-gray-400">/5</span></p>
                 </div>
                 <div class="bg-gray-50 rounded-lg p-2 text-center">
                   <p class="text-xs text-gray-400">Methodology</p>
-                  <p class="text-lg font-bold" style="color:#0095B6;">{{ ra.review.methodology_score }}<span class="text-xs text-gray-400">/5</span></p>
+                  <p class="text-lg font-bold" style="color:#1a1d56;">{{ ra.review.methodology_score }}<span class="text-xs text-gray-400">/5</span></p>
                 </div>
                 <div class="bg-gray-50 rounded-lg p-2 text-center">
                   <p class="text-xs text-gray-400">Originality</p>
-                  <p class="text-lg font-bold" style="color:#0095B6;">{{ ra.review.originality_score }}<span class="text-xs text-gray-400">/5</span></p>
+                  <p class="text-lg font-bold" style="color:#1a1d56;">{{ ra.review.originality_score }}<span class="text-xs text-gray-400">/5</span></p>
                 </div>
                 <div class="bg-gray-50 rounded-lg p-2 text-center">
                   <p class="text-xs text-gray-400">Overall</p>
-                  <p class="text-lg font-bold" style="color:#0095B6;">{{ ra.review.overall_score }}<span class="text-xs text-gray-400">/5</span></p>
+                  <p class="text-lg font-bold" style="color:#1a1d56;">{{ ra.review.overall_score }}<span class="text-xs text-gray-400">/5</span></p>
                 </div>
               </div>
               <p class="text-sm text-gray-700 leading-relaxed">{{ ra.review.comments }}</p>
@@ -344,14 +344,14 @@
         <div>
           <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Title <span class="text-red-500">*</span></label>
           <input v-model="editForm.title" type="text" required
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
         </div>
 
         <!-- Track -->
         <div>
           <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Scientific Track</label>
           <select v-model.number="editForm.track_id"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
             <option :value="null">— No track —</option>
             <option v-for="t in allTracks" :key="t.id" :value="t.id">{{ t.code }}: {{ t.title }}</option>
           </select>
@@ -363,7 +363,7 @@
           <div class="flex gap-4 flex-wrap">
             <label v-for="opt in ['oral','poster','either']" :key="opt"
               class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer capitalize">
-              <input type="radio" v-model="editForm.presentation_type" :value="opt" class="accent-[#0095B6]" />
+              <input type="radio" v-model="editForm.presentation_type" :value="opt" class="accent-[#1a1d56]" />
               {{ opt }}
             </label>
           </div>
@@ -376,7 +376,7 @@
             <span class="ml-1 font-normal text-gray-400 normal-case">(max 300 words)</span>
           </label>
           <textarea v-model="editForm.abstract_text" rows="8" required
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6] resize-y"></textarea>
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56] resize-y"></textarea>
           <p :class="editWordCount > 300 ? 'text-red-500' : 'text-gray-400'" class="text-xs mt-1 text-right">
             {{ editWordCount }} / 300 words<span v-if="editWordCount > 300" class="ml-1 font-semibold"> — over limit!</span>
           </p>
@@ -386,7 +386,7 @@
         <div>
           <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Keywords <span class="text-gray-400 font-normal normal-case">(comma-separated)</span></label>
           <input v-model="editForm.keywords" type="text"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
         </div>
 
         <!-- Authors -->
@@ -395,7 +395,7 @@
             <h3 class="font-semibold text-gray-800 text-sm">Authors & Co-Authors</h3>
             <button type="button" @click="addEditAuthor"
               class="text-sm text-white px-3 py-1.5 rounded-lg font-medium hover:opacity-90"
-              style="background-color:#0095B6;">+ Add Co-Author</button>
+              style="background-color:#1a1d56;">+ Add Co-Author</button>
           </div>
           <div v-for="(author, idx) in editForm.authors" :key="idx"
             class="bg-gray-50 rounded-xl p-4 space-y-3">
@@ -410,31 +410,31 @@
               <div>
                 <label class="block text-xs font-medium text-gray-600 mb-1">First Name <span class="text-red-500">*</span></label>
                 <input v-model="author.firstname" type="text" required
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div>
                 <label class="block text-xs font-medium text-gray-600 mb-1">Last Name <span class="text-red-500">*</span></label>
                 <input v-model="author.lastname" type="text" required
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div>
                 <label class="block text-xs font-medium text-gray-600 mb-1">Email</label>
                 <input v-model="author.email" type="email"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div>
                 <label class="block text-xs font-medium text-gray-600 mb-1">Institution / Affiliation</label>
                 <input v-model="author.affiliation" type="text"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div>
                 <label class="block text-xs font-medium text-gray-600 mb-1">Country</label>
                 <input v-model="author.country" type="text"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               </div>
               <div class="flex items-center gap-2 pt-4">
                 <input type="checkbox" :id="`edit-presenting-${idx}`" v-model="author.is_presenting"
-                  class="accent-[#0095B6] w-4 h-4 cursor-pointer" />
+                  class="accent-[#1a1d56] w-4 h-4 cursor-pointer" />
                 <label :for="`edit-presenting-${idx}`" class="text-sm text-gray-600 cursor-pointer">Presenting author</label>
               </div>
             </div>
@@ -454,7 +454,7 @@
         </button>
         <button @click="saveEdit" :disabled="editModal.saving || editWordCount > 300"
           class="inline-flex items-center gap-2 px-6 py-2 text-sm font-semibold text-white rounded-xl disabled:opacity-50 hover:opacity-90 transition"
-          style="background-color:#0095B6;">
+          style="background-color:#1a1d56;">
           <svg v-if="editModal.saving" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>

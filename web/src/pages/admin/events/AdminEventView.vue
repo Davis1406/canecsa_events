@@ -42,6 +42,45 @@
       </div>
     </div>
 
+    <!-- Abstract Submission Controls -->
+    <div class="px-4 pt-2 pb-2">
+      <div class="bg-white shadow-lg rounded-2xl p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-bold text-gray-800 uppercase tracking-wide">Abstract Submission Window</h3>
+            <p class="text-xs text-gray-500 mt-1">
+              <span v-if="submissionOpen" class="text-green-600 font-semibold">Open</span>
+              <span v-else class="text-red-600 font-semibold">Closed</span>
+              <span v-if="submissionDeadline"> &mdash; Deadline: {{ formatDateTime(submissionDeadline) }}</span>
+            </p>
+          </div>
+          <button @click="toggleSubmission"
+            :disabled="togglingSubmission"
+            :class="[
+              'relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2',
+              submissionOpen ? 'bg-green-500 focus:ring-green-400' : 'bg-gray-300 focus:ring-gray-400',
+              togglingSubmission ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+            ]">
+            <span :class="[
+              'inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 shadow',
+              submissionOpen ? 'translate-x-6' : 'translate-x-1'
+            ]" />
+          </button>
+        </div>
+        <div class="mt-3 flex items-center gap-2">
+          <label class="text-xs text-gray-600 font-medium">Deadline:</label>
+          <input type="datetime-local" v-model="deadlineInput"
+            class="text-xs border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
+          <button @click="saveDeadline" :disabled="!deadlineInput || savingDeadline"
+            class="text-xs px-3 py-1 rounded-lg font-medium transition-colors"
+            :class="savingDeadline ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-[#1a1d56] text-white hover:bg-[#171a4d]'">
+            {{ savingDeadline ? 'Saving…' : 'Save Deadline' }}
+          </button>
+          <span v-if="deadlineMessage" class="text-xs" :class="deadlineError ? 'text-red-600' : 'text-green-600'">{{ deadlineMessage }}</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Tabs -->
     <div class="px-4 pt-4 pb-10">
       <TabGroup>
@@ -82,7 +121,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
               <input v-model="participantSearch" type="text" placeholder="Search by name, email or country…"
-                class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
               <button v-if="participantSearch" @click="participantSearch = ''; currentPage = 1"
                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,7 +157,7 @@
               <!-- Add Participant (admin only) -->
               <button v-if="isFullAdmin" @click="openAddParticipantModal"
                 class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition hover:opacity-90"
-                style="background-color:#0095B6;">
+                style="background-color:#1a1d56;">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
@@ -145,7 +184,7 @@
               <button v-if="isFullAdmin" @click="sendPaymentReminders"
                 :disabled="sendingReminders || unpaidParticipants.length === 0"
                 class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
-                style="background-color:#F7941D;">
+                style="background-color:#f59d08;">
                 <svg v-if="!sendingReminders" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -240,7 +279,7 @@
                     <td class="px-4 py-2 text-gray-500 text-xs">{{ (currentPage - 1) * pageSize + idx + 1 }}</td>
                     <td class="px-4 py-2 font-medium">
                       <router-link :to="{ name: 'AdminUserPerspective', params: { id: p.user_id } }"
-                        class="hover:underline hover:text-[#0095B6] transition-colors">
+                        class="hover:underline hover:text-[#1a1d56] transition-colors">
                         {{ p.firstname }} {{ p.lastname }}
                       </router-link>
                       <div v-if="noteEditingId !== p.id">
@@ -311,7 +350,7 @@
                           <div class="border-t border-gray-100 my-1"></div>
                           <button @click.stop="openEditRoleModal(p); openMenuId = null"
                             class="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 text-gray-700">
-                            <PencilSquareIcon class="w-4 h-4 text-[#0095B6]" /> Edit Role
+                            <PencilSquareIcon class="w-4 h-4 text-[#1a1d56]" /> Edit Role
                           </button>
                           <button @click.stop="deregisterParticipant(p); openMenuId = null"
                             class="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-red-50 text-red-600">
@@ -330,7 +369,7 @@
               <div class="flex items-center gap-2">
                 <span>Show</span>
                 <select v-model="pageSize" @change="currentPage = 1"
-                  class="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+                  class="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                   <option :value="25">25</option>
                   <option :value="50">50</option>
                   <option :value="100">100</option>
@@ -345,7 +384,7 @@
                 <template v-for="pg in pageRange" :key="pg">
                   <span v-if="pg === '...'" class="px-2 text-gray-400">…</span>
                   <button v-else @click="currentPage = pg"
-                    :class="['px-3 py-1.5 rounded-lg border transition', currentPage === pg ? 'border-[#0095B6] bg-[#0095B6] text-white' : 'border-gray-200 hover:bg-gray-50']">
+                    :class="['px-3 py-1.5 rounded-lg border transition', currentPage === pg ? 'border-[#1a1d56] bg-[#1a1d56] text-white' : 'border-gray-200 hover:bg-gray-50']">
                     {{ pg }}
                   </button>
                 </template>
@@ -400,7 +439,7 @@
               <button @click="sendAllPendingReminders"
                 :disabled="sendingPendingReminders || nonAuthorPendingCount === 0"
                 class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
-                style="background-color:#F7941D;">
+                style="background-color:#f59d08;">
                 <svg v-if="!sendingPendingReminders" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
@@ -445,7 +484,7 @@
                     <td class="px-4 py-2 text-gray-400 text-xs">{{ (pendingPage - 1) * pendingPageSize + idx + 1 }}</td>
                     <td class="px-4 py-2 font-medium">
                       <router-link :to="{ name: 'AdminUserPerspective', params: { id: p.user_id } }"
-                        class="hover:underline hover:text-[#0095B6] transition-colors">
+                        class="hover:underline hover:text-[#1a1d56] transition-colors">
                         {{ p.firstname }} {{ p.lastname }}
                       </router-link>
                       <span v-if="p.is_abstract_author"
@@ -549,7 +588,7 @@
               <div class="flex items-center gap-2">
                 <span>Show</span>
                 <select v-model="pendingPageSize"
-                  class="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+                  class="border border-gray-200 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                   <option :value="25">25</option>
                   <option :value="50">50</option>
                   <option :value="100">100</option>
@@ -564,7 +603,7 @@
                 <template v-for="pg in pendingPageRange" :key="pg">
                   <span v-if="pg === '...'" class="px-2 text-gray-400">…</span>
                   <button v-else @click="pendingPage = pg"
-                    :class="['px-3 py-1.5 rounded-lg border transition', pendingPage === pg ? 'border-[#0095B6] bg-[#0095B6] text-white' : 'border-gray-200 hover:bg-gray-50']">
+                    :class="['px-3 py-1.5 rounded-lg border transition', pendingPage === pg ? 'border-[#1a1d56] bg-[#1a1d56] text-white' : 'border-gray-200 hover:bg-gray-50']">
                     {{ pg }}
                   </button>
                 </template>
@@ -765,7 +804,7 @@
               <p class="text-sm text-gray-500">Preview not available for this file type.</p>
               <a :href="proofUrl(proofParticipant.payment_proof)" target="_blank"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90"
-                style="background-color:#0095B6;">
+                style="background-color:#1a1d56;">
                 Download File
               </a>
             </div>
@@ -794,7 +833,7 @@
           <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
             <div class="flex items-center gap-3">
               <div class="h-9 w-9 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-[#0095B6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-5 h-5 text-[#1a1d56]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                 </svg>
@@ -814,10 +853,10 @@
             <div class="relative">
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-1">Select Participant *</label>
               <button type="button" @click="userPickerOpen = !userPickerOpen"
-                class="w-full flex items-center gap-2 px-3 py-2.5 border rounded-xl text-sm text-left transition focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
-                :class="selectedUser ? 'border-[#0095B6] bg-[#e6f7fb]' : 'border-gray-300 bg-white'">
+                class="w-full flex items-center gap-2 px-3 py-2.5 border rounded-xl text-sm text-left transition focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
+                :class="selectedUser ? 'border-[#1a1d56] bg-[#e6f7fb]' : 'border-gray-300 bg-white'">
                 <template v-if="selectedUser">
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase" style="background-color:#0095B6;">
+                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase" style="background-color:#1a1d56;">
                     {{ (selectedUser.firstname?.[0] || '') + (selectedUser.lastname?.[0] || '') }}
                   </div>
                   <div class="flex-1 min-w-0">
@@ -844,14 +883,14 @@
               <div v-if="userPickerOpen" class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-20">
                 <div class="p-2 border-b border-gray-100">
                   <input v-model="userPickerSearch" type="text" placeholder="Type to filter…"
-                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a1d56]" />
                 </div>
                 <div class="max-h-52 overflow-y-auto">
                   <div v-if="loadingUsers" class="p-4 text-center text-sm text-gray-400">Loading users…</div>
                   <div v-else-if="filteredAvailableUsers.length === 0" class="p-4 text-center text-sm text-gray-400">No unregistered users found</div>
                   <button v-else v-for="u in filteredAvailableUsers" :key="u.id" type="button" @click="selectUser(u)"
                     class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-[#e6f7fb] transition text-left border-b border-gray-50 last:border-0">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase" style="background-color:#0095B6;">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0 uppercase" style="background-color:#1a1d56;">
                       {{ (u.firstname?.[0] || '') + (u.lastname?.[0] || '') }}
                     </div>
                     <div class="flex-1 min-w-0">
@@ -865,7 +904,7 @@
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-1">Participation Role *</label>
               <select v-model="addForm.participation_role"
-                class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+                class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                 <option value="" disabled>Select a role…</option>
                 <option value="secretariat">ECSA-HC Secretariat</option>
                 <option value="djcc">DJCC Member</option>
@@ -884,7 +923,7 @@
               </select>
             </div>
             <label class="flex items-center gap-3 cursor-pointer p-3 rounded-xl bg-gray-50 border border-gray-200 select-none">
-              <input type="checkbox" v-model="addForm.send_invitation" class="w-4 h-4 accent-[#0095B6] rounded" />
+              <input type="checkbox" v-model="addForm.send_invitation" class="w-4 h-4 accent-[#1a1d56] rounded" />
               <div>
                 <p class="text-sm font-semibold text-gray-700">Send invitation email</p>
                 <p class="text-xs text-gray-400 mt-0.5">Email the participant their login details and event information. Always sent for new accounts.</p>
@@ -899,7 +938,7 @@
             <button @click="submitAddParticipant"
               :disabled="addingParticipant || !selectedUser || !addForm.participation_role"
               class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl transition hover:opacity-90 disabled:opacity-50"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg v-if="addingParticipant" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -921,7 +960,7 @@
           <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
             <div class="flex items-center gap-3">
               <div class="h-9 w-9 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                <PencilSquareIcon class="w-5 h-5 text-[#0095B6]" />
+                <PencilSquareIcon class="w-5 h-5 text-[#1a1d56]" />
               </div>
               <div>
                 <p class="font-bold text-gray-800 text-sm">Edit Participation Role</p>
@@ -938,7 +977,7 @@
             <div>
               <label class="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-1">Participation Role *</label>
               <select v-model="editRoleForm.participation_role"
-                class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+                class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                 <option value="" disabled>Select a role…</option>
                 <option value="secretariat">ECSA-HC Secretariat</option>
                 <option value="djcc">DJCC Member</option>
@@ -968,7 +1007,7 @@
             <button @click="submitEditRole"
               :disabled="savingEditRole || !editRoleForm.participation_role"
               class="inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white rounded-xl transition hover:opacity-90 disabled:opacity-50"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg v-if="savingEditRole" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
@@ -1010,6 +1049,15 @@ const canVerifyPayment = computed(() => auth.hasPermission('VERIFY_PAYMENT') || 
 const event = ref(null)
 const participants = ref([])
 const pendingRegistrations = ref([])
+
+// Abstract submission controls
+const submissionOpen = ref(false)
+const submissionDeadline = ref(null)
+const deadlineInput = ref('')
+const togglingSubmission = ref(false)
+const savingDeadline = ref(false)
+const deadlineMessage = ref('')
+const deadlineError = ref(false)
 
 // Inline note editing (e.g. "MPA Sponsored")
 const noteEditingId = ref(null)
@@ -1078,7 +1126,7 @@ const roleCategories = computed(() => {
   const djcc = all.filter(p => roleCategoryOf(p) === 'djcc')
   const other = all.filter(p => roleCategoryOf(p) === 'other')
   return [
-    { key: 'all', label: 'All', total: all.length, paid: all.filter(p => p.paid).length, color: '#0095B6' },
+    { key: 'all', label: 'All', total: all.length, paid: all.filter(p => p.paid).length, color: '#1a1d56' },
     { key: 'secretariat', label: 'Secretariat', total: secretariat.length, paid: secretariat.filter(p => p.paid).length, color: '#00AEEF' },
     { key: 'djcc', label: 'DJCC Members', total: djcc.length, paid: djcc.filter(p => p.paid).length, color: '#8B5CF6' },
     { key: 'other', label: 'Other', total: other.length, paid: other.filter(p => p.paid).length, color: '#6B7280' },
@@ -1283,6 +1331,51 @@ async function loadEventData() {
     error.value = err.response?.data?.detail || 'Failed to load event'
   } finally {
     loading.value = false
+  }
+  await loadSubmissionStatus()
+}
+
+async function loadSubmissionStatus() {
+  try {
+    const res = await api.get(`/abstracts/submission-status/${eventId}`)
+    submissionOpen.value = res.data.abstract_submissions_open
+    submissionDeadline.value = res.data.deadline
+    if (res.data.deadline) {
+      deadlineInput.value = res.data.deadline.slice(0, 16)
+    }
+  } catch (e) {
+    // silently fail
+  }
+}
+
+async function toggleSubmission() {
+  togglingSubmission.value = true
+  try {
+    await api.post(`/abstracts/submission-status/${eventId}?open_submissions=${!submissionOpen.value}`)
+    submissionOpen.value = !submissionOpen.value
+  } catch (e) {
+    alert('Failed to toggle submission: ' + (e.response?.data?.detail || e.message))
+  } finally {
+    togglingSubmission.value = false
+  }
+}
+
+async function saveDeadline() {
+  if (!deadlineInput.value) return
+  savingDeadline.value = true
+  deadlineMessage.value = ''
+  try {
+    const res = await api.put(`/abstracts/submission-deadline/${eventId}?deadline=${encodeURIComponent(deadlineInput.value)}`)
+    submissionDeadline.value = deadlineInput.value
+    submissionOpen.value = res.data.abstract_submissions_open
+    deadlineMessage.value = 'Deadline saved'
+    deadlineError.value = false
+  } catch (e) {
+    deadlineMessage.value = 'Failed: ' + (e.response?.data?.detail || e.message)
+    deadlineError.value = true
+  } finally {
+    savingDeadline.value = false
+    setTimeout(() => deadlineMessage.value = '', 5000)
   }
 }
 

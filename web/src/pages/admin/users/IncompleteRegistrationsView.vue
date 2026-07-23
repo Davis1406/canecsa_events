@@ -32,7 +32,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="bg-white rounded-2xl shadow-sm p-5 flex items-center gap-4">
         <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#e6f7fb;">
-          <svg class="w-5 h-5" style="color:#0095B6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-5 h-5" style="color:#1a1d56;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
           </svg>
         </div>
@@ -123,7 +123,7 @@
             <td class="px-4 py-3 text-gray-400 text-xs">{{ idx + 1 }}</td>
             <td class="px-4 py-3 font-medium text-gray-800">
               <router-link :to="{ name: 'AdminUserPerspective', params: { id: u.id } }"
-                class="hover:underline hover:text-[#0095B6] transition-colors">
+                class="hover:underline hover:text-[#1a1d56] transition-colors">
                 {{ u.firstname }} {{ u.lastname }}
               </router-link>
             </td>

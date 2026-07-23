@@ -4,13 +4,13 @@
   >
     <!-- Logo -->
     <router-link :to="{ name: 'AdminDashboard' }" class="flex flex-col items-center justify-center py-4">
-      <img v-if="!minimized" src="@/assets/ecsalogo.png" alt="Logo" class="h-16 mb-1" />
-      <img v-else src="@/assets/ecsalogo.png" alt="Logo Icon" class="h-10" />
+      <img v-if="!minimized" src="@/assets/canecsa-logo.png" alt="Logo" class="h-14 mb-1" />
+      <img v-else src="@/assets/canecsa-logo.png" alt="Logo Icon" class="h-10" />
       <span
         v-if="!minimized"
-        class="font-title font-black text-xl text-bondi-blue bg-clip-text"
+        class="font-title font-black text-lg text-bondi-blue bg-clip-text"
       >
-        ECSA EVENTS
+        CANECSA
       </span>
     </router-link>
 
@@ -41,16 +41,6 @@
           events
         </h3>
         <ul>
-          <li v-if="auth.hasPermission('VIEW_EVENT')" class="mb-1">
-            <router-link
-              :to="{ name: 'AdminEvents' }"
-              class="flex items-center px-3 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-800 rounded-2xl transition-colors"
-              :class="isEventsActive ? 'bg-gray-300 text-gray-900 rounded-2xl' : ''"
-            >
-              <ClipboardDocumentListIcon class="w-5 h-5" />
-              <span v-if="!minimized" class="ml-3">All Events</span>
-            </router-link>
-          </li>
           <li v-if="auth.hasPermission('VIEW_ABSTRACTS')" class="mb-1">
             <router-link
               :to="{ name: 'AdminAbstracts' }"
@@ -71,16 +61,6 @@
               <span v-if="!minimized" class="ml-3">Reviewers</span>
             </router-link>
           </li>
-          <li v-if="auth.hasPermission('VIEW_REGISTRATIONS')" class="mb-1">
-            <router-link
-              :to="{ name: 'AdminRegistrations' }"
-              class="flex items-center px-3 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-800 rounded-2xl transition-colors"
-              :class="isRegistrationsActive ? 'bg-gray-300 text-gray-900 rounded-2xl' : ''"
-            >
-              <ClipboardDocumentCheckIcon class="w-5 h-5" />
-              <span v-if="!minimized" class="ml-3">Registrations</span>
-            </router-link>
-          </li>
           <li v-if="auth.hasPermission('VIEW_ABSTRACTS')" class="mb-1">
             <router-link
               :to="{ name: 'AdminTracks' }"
@@ -88,7 +68,7 @@
               :class="isTracksActive ? 'bg-gray-300 text-gray-900 rounded-2xl' : ''"
             >
               <TagIcon class="w-5 h-5" />
-              <span v-if="!minimized" class="ml-3">Tracks</span>
+              <span v-if="!minimized" class="ml-3">Sub-Themes</span>
             </router-link>
           </li>
         </ul>
@@ -163,16 +143,7 @@
               <span v-if="!minimized" class="ml-3">Access Roles</span>
             </router-link>
           </li>
-          <li v-if="auth.hasPermission('VIEW_ORG_UNIT')" class="mb-1">
-            <router-link
-              :to="{ name: 'Clusters' }"
-              class="flex items-center px-3 py-2 text-gray-600 hover:bg-gray-200 hover:text-gray-800 rounded-2xl transition-colors"
-              :class="isClustersActive ? 'bg-gray-300 text-gray-900 rounded-2xl' : ''"
-            >
-              <BuildingOffice2Icon class="w-5 h-5" />
-              <span v-if="!minimized" class="ml-3">Clusters</span>
-            </router-link>
-          </li>
+
         </ul>
       </div>
 
@@ -224,19 +195,15 @@
 import {
   HomeIcon,
   UserCircleIcon,
-  ClipboardDocumentListIcon,
   DocumentTextIcon,
   UsersIcon,
   ShieldCheckIcon,
-  BuildingOffice2Icon,
   ArrowLeftOnRectangleIcon,
   UserGroupIcon,
-  ClipboardDocumentCheckIcon,
   AdjustmentsHorizontalIcon,
   TagIcon,
   ClockIcon,
   EnvelopeIcon,
-  ChartBarIcon,
 } from '@heroicons/vue/24/outline'
 
 import { computed, ref, watch } from 'vue'
@@ -256,11 +223,6 @@ const route = useRoute()
 
 const username = computed(() => auth.user?.firstname || 'User')
 
-// Keep "All Events" highlighted for list, view, add, and edit pages
-const isEventsActive = computed(() =>
-  ['AdminEvents', 'AdminEvent', 'AddEvent', 'EditEvent'].includes(String(route.name))
-)
-
 // Keep "Abstracts" highlighted for abstracts pages
 const isAbstractsActive = computed(() =>
   ['AdminAbstracts', 'AdminAbstract'].includes(String(route.name))
@@ -272,7 +234,6 @@ const isEmailLogsActive  = computed(() => route.name === 'AdminEmailLogs')
 const settingsOpen   = ref(false)
 
 const isReviewersActive = computed(() => route.name === 'AdminReviewers')
-const isRegistrationsActive = computed(() => route.name === 'AdminRegistrations')
 
 // Keep "User Management" highlighted for list, view, add, and edit pages
 const isUsersActive = computed(() =>
@@ -284,14 +245,9 @@ const isRolesActive = computed(() =>
   ['Roles', 'Role', 'AddRole', 'EditRole'].includes(String(route.name))
 )
 
-// Keep "Clusters" highlighted for list, view, add, and edit pages
-const isClustersActive = computed(() =>
-  ['Clusters', 'Cluster', 'AddCluster', 'EditCluster'].includes(String(route.name))
-)
-
 // Auto-open settings section when any settings sub-route is active
 const isSettingsRoute = computed(() =>
-  isUsersActive.value || isActivityActive.value || isRolesActive.value || isClustersActive.value || isEmailLogsActive.value
+  isUsersActive.value || isActivityActive.value || isRolesActive.value || isEmailLogsActive.value
 )
 watch(isSettingsRoute, (active) => { if (active) settingsOpen.value = true }, { immediate: true })
 

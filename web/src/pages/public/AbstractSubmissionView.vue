@@ -1,17 +1,44 @@
 <template>
   <div class="min-h-screen bg-gray-50">
 
+    <!-- ─── Top Header Bar ──────────────────────────────────────────────────── -->
+    <div style="background-color: #004e8c;">
+      <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="@/assets/canecsa-logo.png" alt="CANECSA Logo" class="h-10 w-auto object-contain" />
+          <span class="font-title font-black text-lg text-white hidden sm:inline">CANECSA <span class="text-base font-bold text-white/70">- Abstracts</span></span>
+        </div>
+        <router-link v-if="auth.isAuthenticated"
+          :to="isAdmin ? { name: 'AdminDashboard' } : { name: 'MyDashboard' }"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-xl font-semibold text-sm bg-white transition-all duration-200 shadow hover:shadow-md hover:scale-105"
+          style="color: #0062ad;">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+          </svg>
+          Go to Dashboard
+        </router-link>
+        <router-link v-else to="/login"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-xl font-semibold text-sm bg-white transition-all duration-200 shadow hover:shadow-md hover:scale-105"
+          style="color: #0062ad;">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
+          Login to Abstract Portal
+        </router-link>
+      </div>
+    </div>
+
     <!-- ─── Hero ──────────────────────────────────────────────────────────────── -->
-    <section class="relative overflow-hidden text-white" style="background: linear-gradient(135deg, #0095B6 0%, #007A96 60%, #005F75 100%);">
-      <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style="background: #F7941D;"></div>
-      <div class="absolute -bottom-12 -left-12 w-56 h-56 rounded-full opacity-10" style="background: #F7941D;"></div>
+    <section class="relative overflow-hidden text-white" style="background-color: #0062ad;">
+      <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style="background: #f59d08;"></div>
+      <div class="absolute -bottom-12 -left-12 w-56 h-56 rounded-full opacity-10" style="background: #f59d08;"></div>
       <div class="relative z-10 max-w-5xl mx-auto px-6 py-16 sm:py-24 text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-6">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          ECSA-HC 2026
+          CANECSA 2026
         </div>
         <h1 class="text-4xl sm:text-5xl font-black mb-4 drop-shadow-sm">Abstract Submission Guidelines</h1>
         <p class="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
@@ -26,7 +53,7 @@
           </svg>
           Abstract Submission — CLOSED
         </div>
-        <div v-else class="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-2xl font-semibold text-sm" style="background-color: #F7941D; color: #fff;">
+        <div v-else class="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-2xl font-semibold text-sm" style="background-color: #f59d08; color: #fff;">
           <span class="relative flex h-3 w-3">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-white"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
@@ -42,13 +69,13 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span>Deadline: <strong>15<sup>th</sup> June 2026</strong></span>
+            <span>Deadline: <strong>{{ formattedDeadline }}</strong></span>
           </div>
           <div class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm">
             <svg class="w-4 h-4 text-orange-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            <span><a href="mailto:smyeni@ecsahc.org" class="underline hover:text-white">smyeni@ecsahc.org</a></span>
+            <span><a href="mailto:info@canecsa.org" class="underline hover:text-white">info@canecsa.org</a></span>
           </div>
         </div>
       </div>
@@ -60,7 +87,7 @@
       <!-- ─ Call For Abstract ──────────────────────────────────────────────────── -->
       <section class="bg-white rounded-2xl shadow-sm p-8">
         <div class="flex items-center gap-3 mb-5">
-          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0062ad;">
             <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
@@ -74,37 +101,34 @@
         </p>
         <ul class="space-y-3">
           <li v-for="item in callForAbstractItems" :key="item" class="flex items-start gap-3 text-gray-600 text-sm leading-relaxed">
-            <span class="mt-1.5 h-2 w-2 rounded-full flex-shrink-0" style="background-color: #0095B6;"></span>
+            <span class="mt-1.5 h-2 w-2 rounded-full flex-shrink-0" style="background-color: #0062ad;"></span>
             {{ item }}
           </li>
         </ul>
       </section>
 
-      <!-- ─ Scientific Tracks ──────────────────────────────────────────────────── -->
+      <!-- ─ Scientific Sub-Themes ──────────────────────────────────────────────── -->
       <section class="bg-white rounded-2xl shadow-sm p-8">
         <div class="flex items-center gap-3 mb-3">
-          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #F7941D;">
+          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #f59d08;">
             <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
-          <div>
-            <h2 class="text-2xl font-bold text-gray-800">Abstract Submission Tracks</h2>
-            <p class="text-xs text-gray-500 mt-0.5">16<sup>th</sup> Best Practices Forum &amp; 32<sup>nd</sup> DJCC Meeting</p>
-          </div>
+          <h2 class="text-2xl font-bold text-gray-800">Abstract Submission Sub-Themes</h2>
         </div>
 
         <!-- Main theme banner -->
-        <div class="rounded-xl px-5 py-4 mb-6 border-l-4" style="background-color: #f0f9fb; border-color: #0095B6;">
-          <p class="text-xs font-semibold uppercase tracking-wide mb-1" style="color: #0095B6;">Main Theme</p>
+        <div class="rounded-xl px-5 py-4 mb-6 border-l-4" style="background-color: #eef7fc; border-color: #0062ad;">
+          <p class="text-xs font-semibold uppercase tracking-wide mb-1" style="color: #0062ad;">Main Theme</p>
           <p class="text-sm font-bold text-gray-800 leading-snug">
-            Shaping the Future of Health in the ECSA Region: Advancing Health Security, Innovation &amp; Sustainability
+            Along the Patient Pathway: Building Systems for Safe Anaesthesia and Critical Care
           </p>
         </div>
 
         <p class="text-gray-600 text-sm mb-6">
-          ECSA-HC 2026 welcomes the submission of abstracts for original contribution in the following tracks:
+          CANECSA 2026 welcomes the submission of abstracts for original contribution in the following sub-themes:
         </p>
 
         <div class="space-y-5">
@@ -113,7 +137,7 @@
             :key="group.number"
             class="rounded-xl border border-gray-100 overflow-hidden"
           >
-            <!-- Main track header -->
+            <!-- Main sub-theme header -->
             <div class="flex items-start gap-3 px-4 py-3" :style="{ backgroundColor: group.color + '18' }">
               <span class="text-xs font-black px-2 py-0.5 rounded-md text-white flex-shrink-0 mt-0.5"
                 :style="{ backgroundColor: group.color }">
@@ -121,7 +145,7 @@
               </span>
               <span class="text-sm font-bold text-gray-800">{{ group.title }}</span>
             </div>
-            <!-- Sub-tracks -->
+            <!-- Sub-themes -->
             <ul class="px-4 py-3 space-y-1.5 bg-white">
               <li
                 v-for="sub in group.subtracks"
@@ -142,17 +166,17 @@
         <!-- Submitting your abstract -->
         <section class="bg-white rounded-2xl shadow-sm p-7">
           <div class="flex items-center gap-2 mb-4">
-            <div class="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+            <div class="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #0062ad;">
               <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
               </svg>
             </div>
             <h3 class="font-bold text-gray-800">Submitting Your Abstract</h3>
           </div>
-          <p class="text-xs text-gray-500 mb-3">ECSA-HC 2026 reserves the right to reject or alter abstracts based on, but not limited to:</p>
+          <p class="text-xs text-gray-500 mb-3">CANECSA 2026 reserves the right to reject or alter abstracts based on, but not limited to:</p>
           <ul class="space-y-2">
             <li v-for="item in submittingItems" :key="item" class="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
-              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               {{ item }}
             </li>
           </ul>
@@ -162,7 +186,7 @@
         <section :class="submissionClosed ? 'bg-red-50 border border-red-300' : 'bg-white'" class="rounded-2xl shadow-sm p-7">
           <div class="flex items-center gap-2 mb-4">
             <div class="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0"
-              :style="{ backgroundColor: submissionClosed ? '#dc2626' : '#F7941D' }">
+              :style="{ backgroundColor: submissionClosed ? '#dc2626' : '#f59d08' }">
               <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -172,16 +196,16 @@
           </div>
           <div :class="submissionClosed ? 'bg-red-100 border-red-300' : 'bg-orange-50 border-orange-200'"
             class="border rounded-xl px-4 py-3 mb-3 text-center">
-            <p class="text-2xl font-black line-through" :style="{ color: submissionClosed ? '#dc2626' : '#F7941D' }">15<sup>th</sup> June 2026</p>
+            <p class="text-2xl font-black line-through" :style="{ color: submissionClosed ? '#dc2626' : '#f59d08' }">{{ formattedDeadline }}</p>
             <p class="text-xs font-bold mt-1" :class="submissionClosed ? 'text-red-700' : 'text-orange-600'">
               {{ submissionClosed ? 'DEADLINE PASSED' : 'Strictly observed' }}
             </p>
           </div>
           <p v-if="submissionClosed" class="text-xs text-red-700 leading-relaxed font-medium">
-            The submission window closed on 15<sup>th</sup> June 2026. No further abstracts are being accepted.
+            The submission window closed on {{ formattedDeadline }}. No further abstracts are being accepted.
           </p>
           <p v-else class="text-xs text-gray-600 leading-relaxed">
-            Abstract deadlines are strictly observed. Only abstracts received by the published deadline (15<sup>th</sup> June 2026) are guaranteed acceptance.
+            Abstract deadlines are strictly observed. Only abstracts received by the published deadline ({{ formattedDeadline }}) are guaranteed acceptance.
             Post-deadline abstracts will not be accepted.
           </p>
         </section>
@@ -189,7 +213,7 @@
         <!-- Review Process -->
         <section class="bg-white rounded-2xl shadow-sm p-7">
           <div class="flex items-center gap-2 mb-4">
-            <div class="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+            <div class="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #0062ad;">
               <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -203,11 +227,11 @@
           <p class="text-xs text-gray-500 mb-2">Abstracts may be selected for:</p>
           <ul class="space-y-1.5">
             <li class="flex items-center gap-2 text-xs text-gray-600">
-              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #0095B6;"></span>
+              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #0062ad;"></span>
               Oral presentation
             </li>
             <li class="flex items-center gap-2 text-xs text-gray-600">
-              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               Poster presentation
             </li>
             <li class="flex items-center gap-2 text-xs text-gray-600">
@@ -215,7 +239,7 @@
               Rejection
             </li>
           </ul>
-          <div class="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-white" style="background-color: #0095B6;">
+          <div class="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-white" style="background-color: #0062ad;">
             <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -230,7 +254,7 @@
         <!-- Session Presentations -->
         <section class="bg-white rounded-2xl shadow-sm p-7">
           <div class="flex items-center gap-3 mb-4">
-            <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+            <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0062ad;">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.361a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -247,7 +271,7 @@
         <!-- ePoster Sessions -->
         <section class="bg-white rounded-2xl shadow-sm p-7">
           <div class="flex items-center gap-3 mb-4">
-            <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #F7941D;">
+            <div class="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #f59d08;">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -257,15 +281,15 @@
           </div>
           <ul class="space-y-2">
             <li class="flex items-start gap-2 text-sm text-gray-600 leading-relaxed">
-              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               Authors must ensure the title and content of their posters correspond to the abstract printed in the program book.
             </li>
             <li class="flex items-start gap-2 text-sm text-gray-600 leading-relaxed">
-              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               ePoster will be designed in a PowerPoint format.
             </li>
             <li class="flex items-start gap-2 text-sm text-gray-600 leading-relaxed">
-              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #F7941D;"></span>
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style="background-color: #f59d08;"></span>
               A template will be provided upon confirmation of your abstract for ePoster designing.
             </li>
           </ul>
@@ -283,8 +307,8 @@
             <h3 class="font-bold text-amber-800 mb-1">Withdrawing an Abstract</h3>
             <p class="text-sm text-amber-700 leading-relaxed">
               Only the first author or submitter may withdraw an abstract from the program. Requests for withdrawals must
-              come to the ECSA-HC 2026 in writing, by email to
-              <a href="mailto:smyeni@ecsahc.org" class="font-semibold underline hover:opacity-80">smyeni@ecsahc.org</a>.
+              come to the CANECSA 2026 in writing, by email to
+              <a href="mailto:info@canecsa.org" class="font-semibold underline hover:opacity-80">info@canecsa.org</a>.
             </p>
           </div>
         </div>
@@ -303,7 +327,7 @@
           <div class="space-y-2">
             <h2 class="text-2xl font-black text-red-700">Abstract Submissions Closed</h2>
             <p class="text-sm text-red-600 max-w-md mx-auto leading-relaxed">
-              The submission deadline of <strong>15<sup>th</sup> June 2026</strong> has passed.
+              The submission deadline of <strong>{{ formattedDeadline }}</strong> has passed.
               No further abstracts are being accepted at this time.
             </p>
           </div>
@@ -311,7 +335,7 @@
             <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            For enquiries: <a href="mailto:smyeni@ecsahc.org" class="underline ml-1">smyeni@ecsahc.org</a>
+            For enquiries: <a href="mailto:info@canecsa.org" class="underline ml-1">info@canecsa.org</a>
           </div>
         </div>
 
@@ -328,40 +352,36 @@
           <div class="space-y-2">
             <h2 class="text-2xl font-bold text-gray-800">Abstract Submitted Successfully!</h2>
             <p class="text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
-              Your abstract has been registered. You will now be redirected to register for the conference.
+              Your abstract has been registered and will be reviewed by our panel of experts.
             </p>
           </div>
 
-          <!-- Countdown / redirect notice -->
-          <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm px-5 py-3 rounded-full">
-            <svg class="w-4 h-4 animate-spin flex-shrink-0" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+          <div class="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 text-sm px-5 py-3 rounded-full">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            Redirecting to conference registration in {{ countdown }}s…
+            You will be notified of the review outcome by email before 5<sup>th</sup> July 2026.
           </div>
 
-          <p class="text-xs text-gray-400">
-            Not redirected?
-            <router-link
-              :to="bpfEventId ? { name: 'Register', params: { id: bpfEventId }, query: registrationQuery } : { name: 'Events' }"
-              class="underline hover:opacity-80" style="color:#0095B6;">
-              Click here
-            </router-link>
-          </p>
+          <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-700 text-sm px-5 py-3 rounded-full font-semibold">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Submission complete — you may now close this page.
+          </div>
         </div>
 
         <!-- ── Form (hidden after submission) ──────────────────────────────── -->
         <template v-else>
         <div class="flex items-center gap-3 mb-6">
-          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0095B6;">
+          <div class="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background-color: #0062ad;">
             <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
             </svg>
           </div>
           <div>
             <h2 class="text-2xl font-bold text-gray-800">Submit Your Abstract</h2>
-            <p class="text-sm text-gray-500 mt-0.5">Fill in the form below to submit your abstract for ECSA-HC 2026.</p>
+            <p class="text-sm text-gray-500 mt-0.5">Fill in the form below to submit your abstract for CANECSA 2026.</p>
           </div>
         </div>
 
@@ -371,7 +391,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Event <span class="text-red-500">*</span></label>
             <select v-model="form.event_id" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]">
               <option disabled :value="null">Select an event</option>
               <option v-for="ev in events" :key="ev.id" :value="ev.id">{{ ev.event }}</option>
             </select>
@@ -381,15 +401,15 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Abstract Title <span class="text-red-500">*</span></label>
             <input v-model="form.title" type="text" required placeholder="Title of your abstract"
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
           </div>
 
-          <!-- Scientific Track -->
+          <!-- Sub-Theme -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Scientific Track <span class="text-red-500">*</span></label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Sub-Theme <span class="text-red-500">*</span></label>
             <select v-model.number="form.track_id" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]">
-              <option :value="null" disabled>Select a track</option>
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]">
+              <option :value="null" disabled>Select a sub-theme</option>
               <template v-for="group in scientificTracks" :key="group.number">
                 <optgroup :label="`${group.number}. ${group.title}`">
                   <option v-for="sub in group.subtracks" :key="sub.id" :value="sub.id">
@@ -405,15 +425,15 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Presentation Preference</label>
             <div class="flex gap-4 flex-wrap">
               <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input type="radio" v-model="form.presentation_type" value="oral" class="accent-[#0095B6]" />
+                <input type="radio" v-model="form.presentation_type" value="oral" class="accent-[#0062ad]" />
                 Oral Presentation
               </label>
               <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input type="radio" v-model="form.presentation_type" value="poster" class="accent-[#0095B6]" />
+                <input type="radio" v-model="form.presentation_type" value="poster" class="accent-[#0062ad]" />
                 ePoster Session
               </label>
               <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                <input type="radio" v-model="form.presentation_type" value="either" class="accent-[#0095B6]" />
+                <input type="radio" v-model="form.presentation_type" value="either" class="accent-[#0062ad]" />
                 Either
               </label>
             </div>
@@ -427,7 +447,7 @@
             </label>
             <textarea v-model="form.abstract_text" rows="7" required
               placeholder="Write or paste your abstract here (maximum 300 words)..."
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]"></textarea>
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]"></textarea>
             <p :class="wordCount > 300 ? 'text-red-500' : 'text-gray-400'" class="text-xs mt-1 text-right">
               {{ wordCount }} / 300 words
               <span v-if="wordCount > 300" class="ml-1 font-semibold">— over limit!</span>
@@ -438,7 +458,7 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Keywords <span class="text-gray-400 text-xs">(optional, comma-separated)</span></label>
             <input v-model="form.keywords" type="text" placeholder="e.g. health systems, UHC, digital health"
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
           </div>
 
           <!-- Authors section -->
@@ -447,7 +467,7 @@
               <h3 class="font-semibold text-gray-800">Authors & Co-Authors <span class="text-red-500">*</span></h3>
               <button type="button" @click="addAuthor"
                 class="text-sm text-white px-3 py-1.5 rounded-lg font-medium transition hover:opacity-90"
-                style="background-color: #0095B6;">
+                style="background-color: #0062ad;">
                 + Add Co-Author
               </button>
             </div>
@@ -465,31 +485,31 @@
                 <div>
                   <label class="block text-xs font-medium text-gray-600 mb-1">First Name <span class="text-red-500">*</span></label>
                   <input v-model="author.firstname" type="text" required placeholder="Jane"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-600 mb-1">Last Name <span class="text-red-500">*</span></label>
                   <input v-model="author.lastname" type="text" required placeholder="Doe"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-600 mb-1">Email</label>
                   <input v-model="author.email" type="email" placeholder="jane@example.org"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-600 mb-1">Institution / Affiliation</label>
                   <input v-model="author.affiliation" type="text" placeholder="Ministry of Health"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-600 mb-1">Country</label>
                   <input v-model="author.country" type="text" placeholder="Tanzania"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]" />
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0062ad]" />
                 </div>
                 <div class="flex items-center gap-2 pt-4">
                   <input type="checkbox" :id="`presenting-${idx}`" v-model="author.is_presenting"
-                    class="accent-[#0095B6] w-4 h-4 cursor-pointer" />
+                    class="accent-[#0062ad] w-4 h-4 cursor-pointer" />
                   <label :for="`presenting-${idx}`" class="text-sm text-gray-600 cursor-pointer">Presenting author</label>
                 </div>
               </div>
@@ -508,13 +528,13 @@
               type="submit"
               :disabled="submitting || wordCount > 300"
               class="px-8 py-3 rounded-full font-semibold text-white text-sm transition hover:opacity-90 disabled:opacity-60 shadow-sm"
-              style="background-color: #0095B6;"
+              style="background-color: #0062ad;"
             >
               {{ submitting ? 'Submitting…' : 'Submit Abstract →' }}
             </button>
             <p class="text-xs text-gray-400">
               For technical support contact
-              <a href="mailto:smyeni@ecsahc.org" class="underline" style="color: #0095B6;">smyeni@ecsahc.org</a>
+              <a href="mailto:info@canecsa.org" class="underline" style="color: #0062ad;">info@canecsa.org</a>
             </p>
           </div>
         </form>
@@ -527,32 +547,60 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import api from '@/plugins/axios'
 import { useAuthStore } from '@/stores/auth'
 
-const SUBMISSION_DEADLINE = new Date('2026-06-15T23:59:59')
-const submissionClosed = computed(() => new Date() > SUBMISSION_DEADLINE)
-
 const auth = useAuthStore()
-const router = useRouter()
+const isAdmin = computed(() => auth.hasPermission('ADMIN_DASHBOARD'))
 
 const events    = ref([])
 const dbTracks  = ref([])
+const submissionClosed = ref(true) // default closed until API responds
+const submissionDeadline = ref(null)
 
-// Theme colours in order (cycle if > 7 themes)
-const THEME_COLORS = ['#0095B6', '#F7941D', '#007A96', '#c0392b', '#27ae60', '#8e44ad', '#e67e22']
+const formattedDeadline = computed(() => {
+  if (!submissionDeadline.value) return 'TBA'
+  const d = new Date(submissionDeadline.value)
+  const day = d.getDate()
+  const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th'
+  const month = d.toLocaleString('en-US', { month: 'long' })
+  const year = d.getFullYear()
+  return `${day}${suffix} ${month} ${year}`
+})
+
+const THEME_COLORS = ['#0062ad', '#f59d08', '#004e8c', '#c0392b', '#27ae60', '#8e44ad', '#e67e22']
 
 onMounted(async () => {
+  // Fetch tracks independently — failure should not block submission status
+  api.get('/abstracts/tracks/public')
+    .then(res => { dbTracks.value = res.data || [] })
+    .catch(e => { console.error('[Abstracts] Failed to load tracks:', e) })
+
+  // Fetch events, then submission status
   try {
-    const [evRes, trackRes] = await Promise.all([
-      api.get('/events/?skip=0&limit=200'),
-      api.get('/abstracts/tracks/public'),
-    ])
-    events.value   = evRes.data.data || []
-    dbTracks.value = trackRes.data   || []
+    const evRes = await api.get('/events/?skip=0&limit=200')
+    events.value = evRes.data.data || []
   } catch (e) {
-    // silently fail
+    console.error('[Abstracts] Failed to load events:', e?.response?.status, e?.message)
+  }
+
+  if (events.value.length > 0) {
+    try {
+      const eventId = events.value[0].id
+      const statusRes = await api.get(`/abstracts/submission-status/${eventId}`)
+      const isOpen = statusRes.data.abstract_submissions_open
+      const deadline = statusRes.data.deadline
+      submissionDeadline.value = deadline
+      if (isOpen) {
+        submissionClosed.value = false
+      } else if (deadline && new Date(deadline) > new Date()) {
+        submissionClosed.value = false
+      } else {
+        submissionClosed.value = true
+      }
+    } catch (e) {
+      console.error('[Abstracts] Failed to load submission status:', e?.response?.status, e?.message)
+    }
   }
 })
 
@@ -562,14 +610,12 @@ const callForAbstractItems = [
   "It is the author's responsibility to submit a correct abstract. Any errors in spelling, grammar or scientific fact in the abstract text will be reproduced as typed by the author. Abstract titles will be subject to a spell check if the abstract is selected for presentation.",
 ]
 
-// Build grouped tracks from the DB list dynamically
 const scientificTracks = computed(() => {
   const groups = []
   const themeMap = new Map()
   for (const t of dbTracks.value) {
     const themeKey = t.theme || 'Other'
     if (!themeMap.has(themeKey)) {
-      // Parse "N. Title (Lead)" → number, title, lead
       const m = themeKey.match(/^(\d+)\.\s*(.+?)\s*(?:\(([^)]+)\))?\s*$/)
       const colorIdx = groups.length % THEME_COLORS.length
       themeMap.set(themeKey, {
@@ -607,21 +653,6 @@ const form = ref(emptyForm())
 const submitting = ref(false)
 const submitted = ref(false)
 const submitError = ref('')
-const countdown = ref(5)
-const abstractId = ref(null)
-const authorFirstname = ref('')
-const authorLastname = ref('')
-const authorEmail = ref('')
-
-// ID of the BPF event to link to after abstract submission (first event in list)
-const bpfEventId = computed(() => events.value[0]?.id ?? null)
-
-const registrationQuery = computed(() => ({
-  ...(abstractId.value ? { abstract_id: abstractId.value } : {}),
-  ...(authorEmail.value ? { email: authorEmail.value } : {}),
-  ...(authorFirstname.value ? { firstname: authorFirstname.value } : {}),
-  ...(authorLastname.value ? { lastname: authorLastname.value } : {}),
-}))
 
 const wordCount = computed(() => {
   const text = form.value.abstract_text.trim()
@@ -641,7 +672,7 @@ const submitAbstract = async () => {
   submitting.value = true
   submitError.value = ''
   try {
-    const res = await api.post('/abstracts/', {
+    await api.post('/abstracts/', {
       event_id: form.value.event_id,
       title: form.value.title,
       abstract_text: form.value.abstract_text,
@@ -650,25 +681,8 @@ const submitAbstract = async () => {
       presentation_type: form.value.presentation_type,
       authors: form.value.authors.map((a, i) => ({ ...a, author_order: i })),
     })
-    abstractId.value = res.data.abstract_id ?? null
-    authorFirstname.value = res.data.author_firstname ?? ''
-    authorLastname.value = res.data.author_lastname ?? ''
-    authorEmail.value = res.data.author_email ?? ''
     submitted.value = true
     form.value = emptyForm()
-
-    // Countdown then redirect to conference registration
-    countdown.value = 5
-    const timer = setInterval(() => {
-      countdown.value--
-      if (countdown.value <= 0) {
-        clearInterval(timer)
-        const dest = bpfEventId.value
-          ? { name: 'Register', params: { id: bpfEventId.value }, query: registrationQuery.value }
-          : { name: 'Events' }
-        router.push(dest)
-      }
-    }, 1000)
   } catch (e) {
     submitError.value = e.response?.data?.detail || 'Submission failed. Please try again.'
   } finally {

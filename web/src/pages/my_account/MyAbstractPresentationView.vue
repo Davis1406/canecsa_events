@@ -42,7 +42,7 @@
               <p class="text-sm font-medium text-gray-700">{{ t.name }}</p>
               <a :href="fileUrl(t.url)" target="_blank"
                 class="text-xs font-medium px-2 py-1 rounded-lg border flex-shrink-0"
-                style="color:#0095B6; border-color:#b3e4f0; background:#e6f7fb;">
+                style="color:#1a1d56; border-color:#b3e4f0; background:#e6f7fb;">
                 Download
               </a>
             </div>
@@ -76,7 +76,7 @@
             <div class="flex items-center gap-2 mt-3">
               <a :href="fileUrl(item.submission.url)" target="_blank"
                 class="text-xs font-medium px-3 py-1.5 rounded-lg border"
-                style="color:#0095B6; border-color:#b3e4f0; background:#e6f7fb;">
+                style="color:#1a1d56; border-color:#b3e4f0; background:#e6f7fb;">
                 Download
               </a>
               <label class="cursor-pointer text-xs font-semibold px-3 py-1.5 rounded-lg border text-indigo-700 bg-indigo-50 border-indigo-200 hover:bg-indigo-100">
@@ -94,7 +94,7 @@
 
           <div v-else>
             <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white rounded-xl transition hover:opacity-90"
-              style="background-color:#0095B6;">
+              style="background-color:#1a1d56;">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>

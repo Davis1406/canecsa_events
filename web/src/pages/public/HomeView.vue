@@ -63,7 +63,7 @@
             v-if="isRegistrationOpen"
             :to="{ name: 'Register', params: { id: featuredEvent.id } }"
             class="inline-block px-8 py-3 rounded-full font-semibold text-sm sm:text-base shadow-lg transition hover:opacity-90 hover:-translate-y-0.5"
-            :style="{ backgroundColor: featuredEvent.org_unit?.secondary_color || '#F7941D', color: '#fff' }"
+            :style="{ backgroundColor: featuredEvent.org_unit?.secondary_color || '#f59d08', color: '#fff' }"
           >
             Register for conference →
           </router-link>
@@ -113,7 +113,7 @@
           <!-- Colored top accent bar -->
           <div
             class="h-2 w-full"
-            :style="{ backgroundColor: event.org_unit?.primary_color || '#0095B6' }"
+            :style="{ backgroundColor: event.org_unit?.primary_color || '#1a1d56' }"
           ></div>
 
           <!-- Banner thumbnail (if available) -->
@@ -127,7 +127,7 @@
             v-else
             class="h-20 w-full flex items-center justify-center"
             :style="{
-              background: `linear-gradient(135deg, ${event.org_unit?.primary_color || '#0095B6'}, ${event.org_unit?.secondary_color || '#F7941D'})`
+              background: `linear-gradient(135deg, ${event.org_unit?.primary_color || '#1a1d56'}, ${event.org_unit?.secondary_color || '#f59d08'})`
             }"
           >
             <span class="text-white font-bold text-lg opacity-70">
@@ -147,7 +147,7 @@
               />
               <span
                 class="text-xs font-semibold px-2 py-0.5 rounded-full text-white"
-                :style="{ backgroundColor: event.org_unit?.primary_color || '#0095B6' }"
+                :style="{ backgroundColor: event.org_unit?.primary_color || '#1a1d56' }"
               >
                 {{ event.org_unit?.name }}
               </span>
@@ -181,10 +181,10 @@
               :to="{ name: 'Event', params: { id: event.id } }"
               class="mt-3 inline-block text-sm font-semibold px-4 py-2 rounded-full border-2 transition hover:text-white"
               :style="{
-                borderColor: event.org_unit?.primary_color || '#0095B6',
-                color: event.org_unit?.primary_color || '#0095B6',
+                borderColor: event.org_unit?.primary_color || '#1a1d56',
+                color: event.org_unit?.primary_color || '#1a1d56',
               }"
-              @mouseenter="(e) => { e.currentTarget.style.backgroundColor = event.org_unit?.primary_color || '#0095B6' }"
+              @mouseenter="(e) => { e.currentTarget.style.backgroundColor = event.org_unit?.primary_color || '#1a1d56' }"
               @mouseleave="(e) => { e.currentTarget.style.backgroundColor = 'transparent' }"
             >
               View Details
@@ -219,7 +219,7 @@
           @click="goToPage(page)"
           class="px-4 py-2 rounded-xl border transition font-medium"
           :class="currentPage === page
-            ? 'bg-[#0095B6] text-white border-[#0095B6]'
+            ? 'bg-[#1a1d56] text-white border-[#1a1d56]'
             : 'border-gray-300 text-gray-600 hover:bg-gray-100'"
         >
           {{ page }}
@@ -235,16 +235,16 @@
       </div>
     </section>
     <!-- ─── CONTACT CTA STRIP ──────────────────────────────────────────────── -->
-    <section class="mt-12" style="background: linear-gradient(135deg, #0095B6 0%, #007A96 100%);">
+    <section class="mt-12" style="background: linear-gradient(135deg, #1a1d56 0%, #171a4d 100%);">
       <div class="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6 text-white">
         <div>
           <h2 class="text-xl sm:text-2xl font-bold mb-1">Have a question about an event?</h2>
-          <p class="text-white/75 text-sm">Reach out to the ECSA-HC Secretariat — Arusha, Tanzania · regsec@ecsahc.org</p>
+          <p class="text-white/75 text-sm">Reach out to the CANECSA Secretariat — Arusha, Tanzania · info@canecsa.org</p>
         </div>
         <router-link
           :to="{ name: 'Contact' }"
           class="flex-shrink-0 px-7 py-3 rounded-full font-semibold text-sm transition hover:opacity-90 shadow-lg"
-          style="background-color: #F7941D; color: #fff;"
+          style="background-color: #f59d08; color: #fff;"
         >
           Contact Us →
         </router-link>
@@ -289,8 +289,8 @@ const heroBgStyle = computed(() => {
   if (banner) {
     return { backgroundImage: `url('${baseUrl}/${banner}')` }
   }
-  const p = featuredEvent.value.org_unit?.primary_color || '#0095B6'
-  const s = featuredEvent.value.org_unit?.secondary_color || '#F7941D'
+  const p = featuredEvent.value.org_unit?.primary_color || '#1a1d56'
+  const s = featuredEvent.value.org_unit?.secondary_color || '#f59d08'
   return { background: `linear-gradient(135deg, ${p} 0%, ${s} 100%)` }
 })
 

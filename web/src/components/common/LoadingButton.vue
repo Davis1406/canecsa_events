@@ -57,7 +57,7 @@
   }
   
   const baseClasses = computed(() =>
-    'px-6 py-2 rounded-xl transition bg-[#0095B6] hover:bg-[#007B97] text-white'
+    'px-6 py-2 rounded-xl transition bg-[#1a1d56] hover:bg-[#007B97] text-white'
   )
   </script>
   

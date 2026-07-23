@@ -21,7 +21,7 @@
           v-if="isRegistrationOpen"
           :to="{ name: 'Register', params: { id: event?.id } }"
           class="inline-block font-semibold px-7 py-2.5 rounded-full shadow transition hover:opacity-90"
-          :style="{ backgroundColor: event?.org_unit_secondary_color || '#F7941D', color: '#fff' }"
+          :style="{ backgroundColor: event?.org_unit_secondary_color || '#f59d08', color: '#fff' }"
         >
           Register Now
         </router-link>
@@ -527,8 +527,8 @@ function toggleLogistics(i) {
 }
 
 // ─── Dynamic colors ───────────────────────────────────────────────────────
-const primaryColor = computed(() => event.value?.org_unit_primary_color || '#0095B6')
-const secondaryColor = computed(() => event.value?.org_unit_secondary_color || '#F7941D')
+const primaryColor = computed(() => event.value?.org_unit_primary_color || '#1a1d56')
+const secondaryColor = computed(() => event.value?.org_unit_secondary_color || '#f59d08')
 
 const heroBgStyle = computed(() => {
   if (!event.value) return {}
@@ -606,7 +606,7 @@ const TIER_STYLES = [
   { bg: 'linear-gradient(135deg, #4A90C4, #1B5E8C)', border: '#4A90C4', emoji: '💎' }, // Diamond
   { bg: 'linear-gradient(135deg, #D4A017, #A87800)', border: '#D4A017', emoji: '🥈' }, // Gold
   { bg: 'linear-gradient(135deg, #7B9EA6, #4A6E78)', border: '#7B9EA6', emoji: '🥉' }, // Silver
-  { bg: 'linear-gradient(135deg, #0095B6, #007A96)', border: '#0095B6', emoji: '🏢' }, // Exhibitor
+  { bg: 'linear-gradient(135deg, #1a1d56, #171a4d)', border: '#1a1d56', emoji: '🏢' }, // Exhibitor
 ]
 
 function tierHeaderBg(i) {

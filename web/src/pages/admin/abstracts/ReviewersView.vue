@@ -11,7 +11,7 @@
       </div>
       <button @click="showNewReviewer = true"
         class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90"
-        style="background-color: #0095B6;">
+        style="background-color: #1a1d56;">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
@@ -42,7 +42,7 @@
       <div class="flex items-center justify-between px-6 py-4 cursor-pointer hover:bg-gray-50 transition"
         @click="toggle(reviewer.reviewer_id)">
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-full bg-[#0095B6] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+          <div class="w-10 h-10 rounded-full bg-[#1a1d56] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
             {{ initials(reviewer.name) }}
           </div>
           <div>
@@ -63,7 +63,7 @@
           </span>
           <!-- Assign button — stops click from toggling collapse -->
           <button @click.stop="openAssign(reviewer)"
-            class="px-3 py-1 rounded-lg text-xs font-semibold border border-[#0095B6] text-[#0095B6] hover:bg-[#0095B6]/10 transition">
+            class="px-3 py-1 rounded-lg text-xs font-semibold border border-[#1a1d56] text-[#1a1d56] hover:bg-[#1a1d56]/10 transition">
             Assign
           </button>
           <ChevronDownIcon class="w-5 h-5 text-gray-400 transition-transform"
@@ -137,7 +137,7 @@
             <button @click="closeNewReviewer" class="px-4 py-2 rounded-xl text-sm border text-gray-600 hover:bg-gray-50">Cancel</button>
             <button @click="createReviewer" :disabled="creatingReviewer"
               class="px-4 py-2 rounded-xl text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50"
-              style="background-color: #0095B6;">
+              style="background-color: #1a1d56;">
               {{ creatingReviewer ? 'Creating…' : 'Create & Send Invite' }}
             </button>
           </div>
@@ -151,7 +151,7 @@
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 space-y-4">
           <div class="flex items-center justify-between">
             <h2 class="text-lg font-semibold text-gray-800">
-              Assign <span class="text-[#0095B6]">{{ assignModal.reviewer?.name }}</span> to Abstract
+              Assign <span class="text-[#1a1d56]">{{ assignModal.reviewer?.name }}</span> to Abstract
             </h2>
             <button @click="assignModal.show = false" class="text-gray-400 hover:text-gray-600">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -185,7 +185,7 @@
             <button @click="assignModal.show = false" class="px-4 py-2 rounded-xl text-sm border text-gray-600 hover:bg-gray-50">Cancel</button>
             <button @click="confirmAssign" :disabled="!assignModal.selectedAbstract || assignModal.loading"
               class="px-4 py-2 rounded-xl text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50"
-              style="background-color: #0095B6;">
+              style="background-color: #1a1d56;">
               {{ assignModal.loading ? 'Assigning…' : 'Assign Reviewer' }}
             </button>
           </div>

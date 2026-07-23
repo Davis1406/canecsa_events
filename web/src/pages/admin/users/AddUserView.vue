@@ -23,7 +23,7 @@
               v-model="newUser.firstname"
               type="text"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newUser.firstname" class="text-sm text-red-500 mt-1">First name is required.</p>
           </div>
@@ -35,7 +35,7 @@
               v-model="newUser.lastname"
               type="text"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newUser.lastname" class="text-sm text-red-500 mt-1">Last name is required.</p>
           </div>
@@ -48,7 +48,7 @@
               type="tel"
               required
               placeholder="+1234567890"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newUser.phone" class="text-sm text-red-500 mt-1">Phone number is required.</p>
           </div>
@@ -60,7 +60,7 @@
               v-model="newUser.email"
               type="email"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             />
             <p v-if="submitted && !newUser.email" class="text-sm text-red-500 mt-1">Valid email is required.</p>
           </div>

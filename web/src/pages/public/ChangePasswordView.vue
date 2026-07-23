@@ -7,7 +7,7 @@
 
         <!-- Header -->
         <div class="text-center">
-          <div class="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4" style="background-color: #0095B6;">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-full mb-4" style="background-color: #1a1d56;">
             <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -49,7 +49,7 @@
                 :type="showCurrent ? 'text' : 'password'"
                 placeholder="Enter your temporary password"
                 required
-                class="w-full px-4 py-2.5 pr-10 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+                class="w-full px-4 py-2.5 pr-10 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
               />
               <button type="button" @click="showCurrent = !showCurrent"
                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -78,7 +78,7 @@
                 placeholder="At least 8 characters"
                 required
                 minlength="8"
-                class="w-full px-4 py-2.5 pr-10 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+                class="w-full px-4 py-2.5 pr-10 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
               />
               <button type="button" @click="showNew = !showNew"
                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -105,7 +105,7 @@
               type="password"
               placeholder="Repeat your new password"
               required
-              class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0095B6]"
+              class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
               :class="confirmPassword && newPassword !== confirmPassword ? 'border-red-300 bg-red-50' : ''"
             />
             <p v-if="confirmPassword && newPassword !== confirmPassword" class="text-xs text-red-500 mt-1">
@@ -117,7 +117,7 @@
             type="submit"
             :disabled="submitting || (confirmPassword && newPassword !== confirmPassword)"
             class="w-full py-3 rounded-full font-semibold text-white text-sm transition hover:opacity-90 disabled:opacity-60 shadow-sm"
-            style="background-color: #0095B6;"
+            style="background-color: #1a1d56;"
           >
             {{ submitting ? 'Saving…' : 'Set New Password →' }}
           </button>
