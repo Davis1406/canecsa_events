@@ -1,5 +1,6 @@
 import io
 import os
+import re
 import uuid
 import shutil
 from typing import Annotated, Optional
@@ -29,6 +30,14 @@ from schemas.events_space import (
 router = APIRouter()
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
+
+_EXCEL_ILLEGAL_CHARACTERS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
+def _excel_safe_value(value):
+    if isinstance(value, str):
+        return _EXCEL_ILLEGAL_CHARACTERS.sub("", value)
+    return value
 
 
 def get_auth_dep(db: Session = Depends(get_db)) -> Auth:
@@ -369,7 +378,7 @@ def export_abstracts(
         ]
 
         for ci, val in enumerate(row, 1):
-            cell = ws.cell(ri, ci, val)
+            cell = ws.cell(ri, ci, _excel_safe_value(val))
             cell.font = body_font
             cell.fill = use_fill
             cell.alignment = left
@@ -399,7 +408,7 @@ def export_abstracts(
                    au.email or "", au.affiliation or "", au.country or "",
                    "Yes" if au.is_presenting else "No"]
             for ci, val in enumerate(row, 1):
-                cell = ws2.cell(ri2, ci, val)
+                cell = ws2.cell(ri2, ci, _excel_safe_value(val))
                 cell.font = body_font
                 cell.fill = use_fill
                 cell.alignment = left
@@ -439,7 +448,7 @@ def export_abstracts(
                 rv.submitted_at.strftime("%d %b %Y") if rv and rv.submitted_at else "",
             ]
             for ci, val in enumerate(row, 1):
-                cell = ws3.cell(ri3, ci, val)
+                cell = ws3.cell(ri3, ci, _excel_safe_value(val))
                 cell.font = body_font
                 cell.fill = use_fill
                 cell.alignment = left
