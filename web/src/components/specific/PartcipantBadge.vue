@@ -12,7 +12,7 @@
         <!-- Logos -->
         <div class="w-full flex justify-between items-center mb-2">
           <img src="@/assets/moh_sz.png" alt="Kingdom of Eswatini MoH" class="h-16 w-auto" />
-          <img src="@/assets/ecsa_hc_banner.png" alt="ECSA-HC" class="h-16 w-auto" />
+          <img src="@/assets/canecsa-logo.png" alt="CANECSA" class="h-16 w-auto" />
         </div>
 
         <!-- Badge Content -->
@@ -80,7 +80,7 @@
         <!-- Logos -->
         <div class="w-[3.6in] flex justify-between items-center mb-2">
           <img src="@/assets/moh_sz.png" alt="Kingdom of Eswatini MoH" class="h-16 w-auto" />
-          <img src="@/assets/ecsa_hc_banner.png" alt="ECSA-HC" class="h-16 w-auto" />
+          <img src="@/assets/canecsa-logo.png" alt="CANECSA" class="h-16 w-auto" />
         </div>
 
         <!-- Badge Content (PDF) -->

@@ -504,7 +504,7 @@ def export_abstracts_pdf(
         Abstract.title,
     ).all()
 
-    event_name = abstracts[0].event.event if abstracts and abstracts[0].event else "ECSA Events"
+    event_name = abstracts[0].event.event if abstracts and abstracts[0].event else "CANECSA Events"
     event_short = event_name if len(event_name) <= 75 else event_name[:72] + "..."
 
     groups = defaultdict(list)
@@ -1173,7 +1173,7 @@ from pydantic import BaseModel as _RejectSchemaBase
 
 class NotifyRejectedSchema(_RejectSchemaBase):
     event_id: int
-    cc_email: Optional[str] = "smyeni@ecsahc.org"
+    cc_email: Optional[str] = "info@canecsa.org"
     test_email: Optional[str] = None
 
 
@@ -1592,7 +1592,7 @@ def bulk_assign_reviewer(
         raise HTTPException(status_code=404, detail="Reviewer not found")
 
     assigner = db.query(User).filter(User.id == current_user["user_id"]).first()
-    assigner_name  = f"{assigner.firstname} {assigner.lastname}" if assigner else "ECSA Secretariat"
+    assigner_name  = f"{assigner.firstname} {assigner.lastname}" if assigner else "CANECSA Secretariat"
     assigner_email = assigner.email if assigner else None
 
     assigned_abstracts = []
@@ -1685,7 +1685,7 @@ def assign_reviewer(
         raise HTTPException(status_code=404, detail="Reviewer not found")
 
     assigner = db.query(User).filter(User.id == current_user["user_id"]).first()
-    assigner_name  = f"{assigner.firstname} {assigner.lastname}" if assigner else "ECSA Secretariat"
+    assigner_name  = f"{assigner.firstname} {assigner.lastname}" if assigner else "CANECSA Secretariat"
     assigner_email = assigner.email if assigner else None
 
     assignment = AbstractReviewer(
@@ -2147,7 +2147,7 @@ class BulkAcceptSchema(_PydanticBase):
 class NotifyAcceptedSchema(_PydanticBase):
     abstract_ids: Optional[_List[int]] = None   # None → all accepted for event
     event_id: Optional[int] = None
-    portal_url: str = "https://events.ecsahc.org"
+    portal_url: str = "https://abstracts.canecsa.org"
     test_email: Optional[str] = None            # if set, all emails go here
     skip_notified: bool = True                  # skip abstracts already notified
 
@@ -2223,7 +2223,7 @@ def notify_acceptance(
     # Build the full job list before touching SMTP
     jobs = []
     for a in abstracts:
-        event_name = a.event.event if a.event else "ECSA BPF"
+        event_name = a.event.event if a.event else "CANECSA BPF"
         p_type = a.presentation_type.value if a.presentation_type else "oral"
         is_eswatini = any(
             (au.country or "").strip().lower() in _eswatini_names
@@ -2393,7 +2393,7 @@ async def send_registration_reminders(
         _days_remaining = 2
         _deadline_label = "7 July 2026"
 
-    event_url = f"https://events.ecsahc.org/events/{event_id}"
+    event_url = f"https://abstracts.canecsa.org/events/{event_id}"
     import utils.mailer_util as _mailer
     from starlette.templating import Jinja2Templates as _Jinja2
     _templates = _Jinja2(directory="templates")
@@ -2416,7 +2416,7 @@ async def send_registration_reminders(
             firstname=author.firstname or "Author",
             event_name=event.event,
             event_url=event_url,
-            portal_url="https://events.ecsahc.org",
+            portal_url="https://abstracts.canecsa.org",
             deadline_label=_deadline_label,
             days_remaining=_days_remaining,
             deadline_extended=deadline_extended,
@@ -2520,4 +2520,3 @@ async def update_submission_deadline(
         "deadline": event.abstract_submission_deadline.isoformat() if event.abstract_submission_deadline else None,
         "message": f"Deadline updated to {deadline_dt.strftime('%d %B %Y %H:%M')}.",
     }
-

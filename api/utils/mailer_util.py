@@ -15,8 +15,8 @@ YEAR = datetime.now().year
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 templates = Jinja2Templates(directory="templates")
 
-FROM_NAME  = "ECSA Events"
-FROM_EMAIL = os.getenv("SMTP_FROM_EMAIL", "admission@cosecsa.org")
+FROM_NAME  = "CANECSA Events"
+FROM_EMAIL = os.getenv("SMTP_FROM_EMAIL", "info@canecsa.org")
 
 # --- PASSWORD UTILS ---
 
@@ -35,7 +35,7 @@ def verify_password(password: str, hashed_password: str):
 logger = logging.getLogger(__name__)
 
 
-APP_BASE_URL = os.getenv("APP_BASE_URL", "https://events.ecsahc.org")
+APP_BASE_URL = os.getenv("APP_BASE_URL", "https://abstracts.canecsa.org")
 
 
 def _create_email_log(db, recipient_email, subject, email_type, sent_by_user_id,
@@ -115,7 +115,7 @@ def send_email(recipient_email, subject, email_body, reply_to_email=None,
         )
         final_body = email_body.replace("</body>", f"{pixel}\n</body>", 1)
 
-    # Use "Name via ECSA Events <admission@...>" when a personal sender is provided
+    # Use "Name via CANECSA Events <info@canecsa.org>" when a personal sender is provided
     display_name = f"{sender_display_name} via {FROM_NAME}" if sender_display_name else FROM_NAME
 
     try:
@@ -258,7 +258,7 @@ def new_account_email(
     recipient_email, firstname, password, event_name=None,
     background_tasks: BackgroundTasks = None, db=None, sent_by_user_id=None,
 ):
-    subject = "Welcome to ECSA Events Portal – Your Account Details"
+    subject = "Welcome to CANECSA Events Portal – Your Account Details"
     template = templates.get_template("acount_creation_template.html")
     email_body = template.render(
         subject=subject,
@@ -276,7 +276,7 @@ def admin_password_reset_email(
     recipient_email, firstname, password,
     background_tasks: BackgroundTasks = None, db=None, sent_by_user_id=None,
 ):
-    subject = "Your Password Has Been Reset – ECSA Events Portal"
+    subject = "Your Password Has Been Reset – CANECSA Events Portal"
     template = templates.get_template("admin_password_reset_template.html")
     email_body = template.render(
         subject=subject,
@@ -310,7 +310,7 @@ def reset_password_request_email(
 def password_reset_email(
     recipient_email, firstname, background_tasks: BackgroundTasks = None, db=None,
 ):
-    subject = "Your ECSA-HC Event Spaces Account password has been reset"
+    subject = "Your CANECSA Event Spaces Account password has been reset"
     template = templates.get_template("password_reset_template.html")
     email_body = template.render(
         subject=subject,
@@ -325,7 +325,7 @@ def password_reset_email(
 def account_verification_email(
     recipient_email, firstname, background_tasks: BackgroundTasks = None
 ):
-    subject = "Your ECSA-HC Event Spaces Account has been verified"
+    subject = "Your CANECSA Event Spaces Account has been verified"
     template = templates.get_template("account_verification_template.html")
     email_body = template.render(
         subject=subject,
@@ -395,8 +395,8 @@ def payment_reminder_email(
     recipient_email,
     firstname,
     event_name,
-    payment_url="https://ecsahc.org/payment/",
-    portal_url="https://events.ecsahc.org",
+    payment_url="https://canecsa.org/payment/",
+    portal_url="https://abstracts.canecsa.org",
     background_tasks: BackgroundTasks = None,
     db=None,
     sent_by_user_id=None,
@@ -425,13 +425,13 @@ def event_invitation_email(
     is_new_user=False,
     password=None,
     no_payment=False,
-    portal_url="https://events.ecsahc.org",
-    payment_url="https://ecsahc.org/payment/",
+    portal_url="https://abstracts.canecsa.org",
+    payment_url="https://canecsa.org/payment/",
     background_tasks: BackgroundTasks = None,
     db=None,
     sent_by_user_id=None,
 ):
-    subject = f"You Have Been Registered for {event_name} – ECSA Events Portal"
+    subject = f"You Have Been Registered for {event_name} – CANECSA Events Portal"
     template = templates.get_template("event_invitation_template.html")
     email_body = template.render(
         subject=subject,
@@ -464,7 +464,7 @@ def reviewer_assignment_email(
     background_tasks: BackgroundTasks = None,
     db=None,
 ):
-    subject = "You Have Been Assigned an Abstract to Review – ECSA Events Portal"
+    subject = "You Have Been Assigned an Abstract to Review – CANECSA Events Portal"
     template = templates.get_template("reviewer_assignment_template.html")
     email_body = template.render(
         subject=subject,
@@ -473,7 +473,7 @@ def reviewer_assignment_email(
         password=password,
         abstract_title=abstract_title,
         event_name=event_name,
-        assigned_by_name=assigned_by_name or "ECSA Secretariat",
+        assigned_by_name=assigned_by_name or "CANECSA Secretariat",
         assigned_by_email=assigned_by_email or FROM_EMAIL,
         year=YEAR,
     )
@@ -523,7 +523,7 @@ def reviewer_bulk_assignment_email(
 ):
     count = len(abstracts)
     subject = (
-        f"You Have Been Assigned {count} Abstract{'s' if count != 1 else ''} to Review – ECSA Events Portal"
+        f"You Have Been Assigned {count} Abstract{'s' if count != 1 else ''} to Review – CANECSA Events Portal"
     )
     template = templates.get_template("reviewer_bulk_assignment_template.html")
     email_body = template.render(
@@ -533,7 +533,7 @@ def reviewer_bulk_assignment_email(
         password=password,
         abstracts=abstracts,
         count=count,
-        assigned_by_name=assigned_by_name or "ECSA Secretariat",
+        assigned_by_name=assigned_by_name or "CANECSA Secretariat",
         assigned_by_email=assigned_by_email or FROM_EMAIL,
         year=YEAR,
     )
@@ -572,7 +572,7 @@ def payment_verified_email(
     firstname,
     event_name,
     password=None,
-    portal_url="https://events.ecsahc.org",
+    portal_url="https://abstracts.canecsa.org",
     background_tasks: BackgroundTasks = None,
     db=None,
     sent_by_user_id=None,
@@ -597,7 +597,7 @@ def registration_reminder_email(
     firstname,
     event_name,
     event_url,
-    portal_url="https://events.ecsahc.org",
+    portal_url="https://abstracts.canecsa.org",
     deadline_label="7 July 2026",
     days_remaining=2,
     background_tasks: BackgroundTasks = None,
@@ -657,11 +657,11 @@ def abstract_acceptance_email(
 def incomplete_registration_reminder_email(
     recipient_email,
     firstname,
-    portal_url="https://events.ecsahc.org",
+    portal_url="https://abstracts.canecsa.org",
     background_tasks: BackgroundTasks = None,
     db=None,
 ):
-    subject = "Complete Your Registration – ECSA-HC Events Portal"
+    subject = "Complete Your Registration – CANECSA Events Portal"
     template = templates.get_template("incomplete_registration_template.html")
     email_body = template.render(
         subject=subject,

@@ -156,7 +156,7 @@
 
         <!-- ══════════════════════════════════════════════════════════════════════
              PARTICIPATION CATEGORIES & CONFERENCE FEES
-             Cards layout matching events.ecsahc.org
+             Cards layout matching abstracts.canecsa.org
         ═══════════════════════════════════════════════════════════════════════ -->
         <section v-if="participationData.categories.length">
           <!-- Section header -->
@@ -316,7 +316,7 @@
               <!-- Contact CTA -->
               <div class="bg-white px-5 pb-4">
                 <a
-                  href="mailto:regsec@ecsahc.org"
+                  href="mailto:info@canecsa.org"
                   class="block text-center text-xs font-semibold py-2 rounded-full transition hover:opacity-80"
                   :style="{ backgroundColor: tierBorderColor(i), color: '#fff' }"
                 >
@@ -329,7 +329,7 @@
           <!-- Contact note -->
           <p class="text-center text-sm text-gray-500 mt-4 pb-2">
             For sponsorship enquiries contact
-            <a href="mailto:regsec@ecsahc.org" class="font-semibold underline" :style="{ color: primaryColor }">regsec@ecsahc.org</a>
+            <a href="mailto:info@canecsa.org" class="font-semibold underline" :style="{ color: primaryColor }">info@canecsa.org</a>
           </p>
         </section>
 

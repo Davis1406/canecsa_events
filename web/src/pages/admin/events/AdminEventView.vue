@@ -906,10 +906,10 @@
               <select v-model="addForm.participation_role"
                 class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                 <option value="" disabled>Select a role…</option>
-                <option value="secretariat">ECSA-HC Secretariat</option>
+                <option value="secretariat">CANECSA Secretariat</option>
                 <option value="djcc">DJCC Member</option>
                 <option value="moh">Country Delegate (Ministry of Health)</option>
-                <option value="member_state">Participant – ECSA Member State</option>
+                <option value="member_state">Participant – CANECSA Member State</option>
                 <option value="other_africa">Participant – Other African Country</option>
                 <option value="world">International Participant</option>
                 <option value="delegate">Delegate</option>
@@ -979,10 +979,10 @@
               <select v-model="editRoleForm.participation_role"
                 class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a1d56]">
                 <option value="" disabled>Select a role…</option>
-                <option value="secretariat">ECSA-HC Secretariat</option>
+                <option value="secretariat">CANECSA Secretariat</option>
                 <option value="djcc">DJCC Member</option>
                 <option value="moh">Country Delegate (Ministry of Health)</option>
-                <option value="member_state">Participant – ECSA Member State</option>
+                <option value="member_state">Participant – CANECSA Member State</option>
                 <option value="other_africa">Participant – Other African Country</option>
                 <option value="world">International Participant</option>
                 <option value="delegate">Delegate</option>

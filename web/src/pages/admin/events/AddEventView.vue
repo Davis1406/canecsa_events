@@ -55,7 +55,7 @@
             <textarea
               v-model="newEvent.organizers"
               rows="3"
-              placeholder="e.g. ECSA-HC Secretariat, Ministry of Health Kenya..."
+              placeholder="e.g. CANECSA Secretariat, Ministry of Health Kenya..."
               class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1a1d56]"
             ></textarea>
           </div>

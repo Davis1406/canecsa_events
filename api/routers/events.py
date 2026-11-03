@@ -80,10 +80,10 @@ def sanitize_filename(name: str) -> str:
 
 # Define mapping of participation_role keys to display names
 PARTICIPATION_ROLE_MAP = {
-    "secretariat": "ECSA-HC secretariat",
+    "secretariat": "CANECSA secretariat",
     "djcc": "DJCC Member",
     "moh": "Country delegate (from Ministry of Health)",
-    "member_state": "Participant from ECSA Member States",
+    "member_state": "Participant from CANECSA Member States",
     "other_africa": "Participant from other African countries",
     "world": "Participant from the Rest of the World",
     "student": "Student",
@@ -118,7 +118,7 @@ def normalize_event_name(name: str) -> str:
     )
 
 
-# ── Badge role colours / labels (matching official ECSA name-tag templates) ───
+# ── Badge role colours / labels (matching official CANECSA name-tag templates) ─
 BADGE_ROLE_COLORS = {
     "media":        "#FFD700",
     "moderator":    "#F7941D",
@@ -155,14 +155,14 @@ BADGE_ROLE_LABELS = {
     "sponsor":      "SPONSOR",
 }
 
-# ISO 3166-1 alpha-2 codes for ECSA member states shown on the badge
+# ISO 3166-1 alpha-2 codes for CANECSA member states shown on the badge
 # (must match flagCodes in ParticipantBadgeModal.vue)
 ECSA_FLAG_CODES = ["sz", "ke", "ls", "mw", "mu", "mz", "st", "tz", "ug", "zm", "zw"]
 _FLAG_CACHE: dict = {}
 
 
 def _get_flag_images():
-    """Return a {code: ImageReader} dict for ECSA member flags (cached)."""
+    """Return a {code: ImageReader} dict for CANECSA member flags (cached)."""
     global _FLAG_CACHE
     if _FLAG_CACHE:
         return _FLAG_CACHE
@@ -2054,9 +2054,9 @@ def hex_to_rgb(hex_color: str):
 
 
 def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_rgb=None):
-    """Render one A6 ECSA conference badge matching the official name-tag design exactly.
+    """Render one A6 CANECSA conference badge matching the official name-tag design exactly.
 
-    All positions derived from official ECSA-HC A6 (105×148 mm) badge PDFs.
+    All positions derived from official CANECSA A6 (105×148 mm) badge PDFs.
     PyMuPDF extracted coordinates are in mm from top; converted to ReportLab
     (y from bottom) via fy(y_top_mm) = (148 - y_top_mm) * mm.
     """
@@ -2075,7 +2075,7 @@ def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_
     banner_txt = (0.0, 0.0, 0.0) if role_hex == "#FFD700" else (1.0, 1.0, 1.0)
     role_label = BADGE_ROLE_LABELS.get(role_raw, role_raw.upper())
 
-    # ── Background texture (grey granite, extracted from official ECSA badge) ─
+    # ── Background texture (grey granite, extracted from official CANECSA badge) ─
     bg_path = "assets/badge_bg.jpg"
     if os.path.exists(bg_path):
         try:
@@ -2089,8 +2089,9 @@ def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_
 
     # ── Logos ─────────────────────────────────────────────────────────────────
     # Left logo (Eswatini MoH): 5–32 mm from left, 3–17 mm from top
-    # Right logo (ECSA-HC):    58–98 mm from left, 3–17 mm from top
+    # Right logo (CANECSA): centered in the 58–98 mm area, 3–17 mm from top
     logo_h_mm = 14.0
+    logo_right_w_mm = 14.0
     if logo_left:
         try:
             c.drawImage(logo_left, 5*mm, fy(3 + logo_h_mm),
@@ -2099,8 +2100,8 @@ def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_
             pass
     if logo_right:
         try:
-            c.drawImage(logo_right, 58*mm, fy(3 + logo_h_mm),
-                        width=40*mm, height=logo_h_mm*mm, preserveAspectRatio=True, mask='auto')
+            c.drawImage(logo_right, 58*mm + (40.0 - logo_right_w_mm) / 2 * mm, fy(3 + logo_h_mm),
+                        width=logo_right_w_mm*mm, height=logo_h_mm*mm, preserveAspectRatio=True, mask='auto')
         except Exception:
             pass
 
@@ -2117,7 +2118,7 @@ def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_
         title1 = " ".join(words[:mid])
         title2 = " ".join(words[mid:])
 
-    c.setFillColorRGB(0.969, 0.580, 0.114)          # ECSA orange
+    c.setFillColorRGB(0.969, 0.580, 0.114)          # CANECSA orange
     c.setFont("Helvetica-Bold", 21)
     c.drawCentredString(W / 2, fy(29.3 + 21 * 25.4/72 * 0.75), title1)
 
@@ -2232,7 +2233,7 @@ def _render_badge_page(c, p, logo_left, logo_right, primary_rgb=None, secondary_
     c.setFont("Helvetica", 6.5)
     c.drawCentredString(W / 2, fy(134.5), "Scan QR code to confirm attendance")
 
-    # ── ECSA member-state flags ───────────────────────────────────────────────
+    # ── CANECSA member-state flags ────────────────────────────────────────────
     # Single row at the very bottom, matching the online badge preview.
     flag_map  = _get_flag_images()
     all_flags = [flag_map.get(code) for code in ECSA_FLAG_CODES]
@@ -2639,8 +2640,8 @@ async def send_payment_reminders(
                 recipient_email=user.email,
                 firstname=user.firstname or "Participant",
                 event_name=event.event,
-                payment_url="https://ecsahc.org/payment/",
-                portal_url="https://events.ecsahc.org",
+                payment_url="https://canecsa.org/payment/",
+                portal_url="https://abstracts.canecsa.org",
                 background_tasks=background_tasks,
                 db=db,
                 sent_by_user_id=current_user["user_id"],
@@ -2680,14 +2681,14 @@ async def send_single_pending_reminder(
         raise HTTPException(status_code=404, detail="Registration not found")
 
     import utils.mailer_util as mailer_util
-    payment_url = f"https://events.ecsahc.org/payment/{event_id}/{registration_id}"
+    payment_url = f"https://abstracts.canecsa.org/payment/{event_id}/{registration_id}"
     if registration.user and registration.user.email:
         mailer_util.payment_reminder_email(
             recipient_email=registration.user.email,
             firstname=registration.user.firstname or "Participant",
             event_name=event.event,
             payment_url=payment_url,
-            portal_url="https://events.ecsahc.org",
+            portal_url="https://abstracts.canecsa.org",
             background_tasks=background_tasks,
             db=db,
             sent_by_user_id=current_user["user_id"],
@@ -2746,14 +2747,14 @@ async def send_pending_bulk_reminders(
     messages = []
     for reg in targets:
         if reg.user and reg.user.email:
-            payment_url = f"https://events.ecsahc.org/payment/{event_id}/{reg.id}"
+            payment_url = f"https://abstracts.canecsa.org/payment/{event_id}/{reg.id}"
             subject = f"Action Required: Complete Your Payment – {event.event}"
             body = _templates.get_template("payment_reminder_template.html").render(
                 subject=subject,
                 firstname=reg.user.firstname or "Participant",
                 event_name=event.event,
                 payment_url=payment_url,
-                portal_url="https://events.ecsahc.org",
+                portal_url="https://abstracts.canecsa.org",
                 year=__import__("datetime").datetime.now().year,
             )
             messages.append({
@@ -2813,8 +2814,8 @@ class AdminAddParticipantSchema(BaseModel):
     lastname: str = ""
     participation_role: str
     send_invitation: bool = True
-    payment_url: str = "https://ecsahc.org/payment/"
-    portal_url: str = "https://events.ecsahc.org"
+    payment_url: str = "https://canecsa.org/payment/"
+    portal_url: str = "https://abstracts.canecsa.org"
 
 
 @router.post("/{event_id}/admin-add-participant")
@@ -2916,10 +2917,10 @@ async def admin_add_participant(
 
     # Build friendly role label
     role_labels = {
-        "secretariat": "ECSA-HC Secretariat",
+        "secretariat": "CANECSA Secretariat",
         "djcc": "DJCC Member",
         "moh": "Country Delegate (Ministry of Health)",
-        "member_state": "Participant from ECSA Member States",
+        "member_state": "Participant from CANECSA Member States",
         "other_africa": "Participant from other African countries",
         "world": "International Participant",
         "student": "Student",

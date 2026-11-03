@@ -32,12 +32,12 @@
         >
 
           <!-- ── Logos ─────────────────────────────────────────────────── -->
-          <!-- Left: Eswatini MoH  5–32 mm | Right: ECSA-HC  58–98 mm      -->
+          <!-- Left: Eswatini MoH  5–32 mm | Right: CANECSA  58–98 mm      -->
           <!-- Enlarged to 13% height for better visibility                 -->
           <div class="absolute flex justify-between items-center"
                style="top:1.5%;left:3%;right:1.5%;height:13%;">
             <img src="@/assets/moh_sz.png"         class="h-full w-auto object-contain" style="max-width:48%;" alt="Kingdom of Eswatini Ministry of Health" />
-            <img src="@/assets/ecsa_hc_banner.png" class="h-full w-auto object-contain" style="max-width:48%;" alt="ECSA-HC" />
+            <img src="@/assets/canecsa-logo.png" class="h-full w-auto object-contain" style="max-width:48%;" alt="CANECSA" />
           </div>
 
           <!-- ── Title 1 (orange) baseline at y≈22% of badge height ────── -->
@@ -275,13 +275,13 @@ const infoRows = computed(() => [
 const rowTops = ['62%', '68%', '74%']
 
 // ── QR code ──────────────────────────────────────────────────────────────────
-const apiOrigin = 'https://events.ecsahc.org'
+const apiOrigin = 'https://abstracts.canecsa.org'
 const qrUrl = computed(() => {
   const data = `${apiOrigin}/event-attendance/${props.event?.id}?reg=${props.user?.id}`
   return `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(data)}`
 })
 
-// ── ECSA member-state flags ───────────────────────────────────────────────────
+// ── CANECSA member-state flags ────────────────────────────────────────────────
 const flagCodes = ['sz', 'ke', 'ls', 'mw', 'mu', 'mz', 'st', 'tz', 'ug', 'zm', 'zw']
 
 // ── PDF download — calls the backend which generates a proper A6 PDF ─────────

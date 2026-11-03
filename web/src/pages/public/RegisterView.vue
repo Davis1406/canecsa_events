@@ -461,7 +461,7 @@ const registrationError = ref(null)
 const isSubmitting = ref(false)
 const registrationDone = ref(false)
 const payNow = ref(false)
-const paymentUrl = ref('https://ecsahc.org/payment/')
+const paymentUrl = ref('https://canecsa.org/payment/')
 const loading = ref(true)
 const error = ref(null)
 
@@ -488,9 +488,9 @@ const country_id = ref('')
 const participation_role = ref('')
 
 const participationOptions = [
-  { value: 'secretariat', label: 'ECSA-HC Secretariat' },
+  { value: 'secretariat', label: 'CANECSA Secretariat' },
   { value: 'moh', label: 'Country Delegate (Ministry of Health)' },
-  { value: 'member_state', label: 'ECSA Member State Participant' },
+  { value: 'member_state', label: 'CANECSA Member State Participant' },
   { value: 'other_africa', label: 'Other African Countries' },
   { value: 'world', label: 'Rest of the World' },
   { value: 'student', label: 'Student' },

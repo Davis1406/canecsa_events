@@ -29,9 +29,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="ECSA Events Space API Documentation",
+    title="CANECSA Events Space API Documentation",
     lifespan=lifespan,
-    description="The ECSA Events Space API is an API for ECSA Events Management System.",
+    description="The CANECSA Events Space API is an API for CANECSA Events Management System.",
     version="0.0.1",
     terms_of_service="http://example.com/terms/",
     contact={
@@ -49,7 +49,7 @@ app = FastAPI(
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 origins = [
-    "https://api.ecsahc.com",
+    "https://abstracts.canecsa.org",
     "http://localhost:8080",
 ]
 

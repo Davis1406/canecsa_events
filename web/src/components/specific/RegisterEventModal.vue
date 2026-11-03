@@ -12,9 +12,9 @@
         class="w-full p-2 border rounded-md focus:outline-none focus:ring"
       >
               <option disabled value="">Select category</option>
-              <option value="secretariat">ECSA-HC secretariat</option>
+              <option value="secretariat">CANECSA secretariat</option>
               <option value="moh">Country delegate (from Ministry of Health)</option>
-              <option value="member_state">Participant from ECSA Member States</option>
+              <option value="member_state">Participant from CANECSA Member States</option>
               <option value="other_africa">Participant from other African countries</option>
               <option value="world">Participant from the Rest of the World</option>
               <option value="student">Student</option>

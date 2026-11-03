@@ -242,7 +242,7 @@ const proof_file = ref(null)
 
 const paymentBase = window.location.hostname === 'localhost'
   ? 'http://localhost/payment/'
-  : 'https://ecsahc.org/payment/'
+  : 'https://canecsa.org/payment/'
 
 let countdownTimer = null
 

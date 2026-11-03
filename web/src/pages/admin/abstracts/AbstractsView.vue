@@ -825,7 +825,7 @@
             <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest">Upload New Template</p>
             <div>
               <label class="block text-xs text-gray-500 mb-1">Template Name <span class="text-red-500">*</span></label>
-              <input v-model="tmplModal.name" type="text" class="input w-full" placeholder="e.g. ECSA-HC PowerPoint Template 2026" />
+              <input v-model="tmplModal.name" type="text" class="input w-full" placeholder="e.g. CANECSA PowerPoint Template 2026" />
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
@@ -1160,7 +1160,7 @@
           <!-- Portal URL -->
           <div>
             <label class="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-1.5">Portal URL</label>
-            <input v-model="notifyModal.portalUrl" type="url" class="input w-full" placeholder="https://events.ecsahc.org" />
+            <input v-model="notifyModal.portalUrl" type="url" class="input w-full" placeholder="https://abstracts.canecsa.org" />
           </div>
 
           <!-- Skip already notified (bulk only) -->
@@ -1444,7 +1444,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
               <p class="text-xs leading-relaxed" style="color:#006f87;">
-                Sent from <strong>ECSA Events &lt;admission@cosecsa.org&gt;</strong>, cc'd to <strong>smyeni@ecsahc.org</strong>.
+                Sent from <strong>CANECSA Events &lt;info@canecsa.org&gt;</strong>, cc'd to <strong>info@canecsa.org</strong>.
                 Authors already notified for a given abstract are skipped automatically.
               </p>
             </div>
@@ -2177,7 +2177,7 @@ const notifyModal = ref({
   open: false,
   singleAbstract: null,
   eventId: null,
-  portalUrl: 'https://events.ecsahc.org',
+  portalUrl: 'https://abstracts.canecsa.org',
   skipNotified: true,
   testEmail: '',
   sending: false,

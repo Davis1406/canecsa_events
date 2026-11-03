@@ -16,7 +16,7 @@ const open = ref(false)
 const container = ref(null)
 
 const LABELS = {
-  ecsa_member: 'ECSA Member States',
+  ecsa_member: 'CANECSA Member States',
   african: 'Other African Countries',
   non_african: 'Non-African Countries',
 }

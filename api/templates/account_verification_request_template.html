@@ -20,7 +20,7 @@
         background-color: #ffffff;
         padding: 40px;
         box-sizing: border-box;
-        border-top: 6px solid #0095b6; /* ECSA-HC blue */
+        border-top: 6px solid #0095b6; /* CANECSA blue */
       }
       h1 {
         font-size: 24px;
@@ -61,24 +61,23 @@
       <h1>{{subject}}</h1>
       <p>Dear <strong>{{firstname}}</strong>,</p>
       <p>
-        We received a request to verify your ECSA-HC account. If you did not request this, please disregard this email.
+        We received a request to verify your CANECSA account. If you did not request this, please disregard this email.
       </p>
       <p>To complete your verification, please click the button below:</p>
       <a
-        href="https://dev.ecsa-hc.org/verify-account/{{verification_token}}"
+        href="https://abstracts.canecsa.org/verify-account/{{verification_token}}"
         class="button"
         >Verify Your Account</a
       >
       <p>
         If you experience any issues or have questions, you can reach us at
-        <a href="mailto:support@ecsa-hc.org">support@ecsa-hc.org</a>.
+        <a href="mailto:info@canecsa.org">info@canecsa.org</a>.
       </p>
-      <p><strong>About ECSA-HC:</strong></p>
+      <p><strong>About CANECSA:</strong></p>
       <p>
-        The East, Central and Southern Africa Health Community (ECSA-HC) is a regional intergovernmental health organization dedicated to strengthening health systems through policy, research, and collaboration among its member states.
-      </p>
-      <p>Sincerely,<br />ECSA-HC Secretariat</p>
-      <div class="footer">&copy; {{year}} ECSA-HC. All rights reserved.</div>
+        The College of Anaesthesiologists of East, Central and Southern Africa (CANECSA) is an intergovernmental health organisation serving 14 Member States.</p>
+      <p>Sincerely,<br />CANECSA Secretariat</p>
+      <div class="footer">&copy; {{year}} CANECSA. All rights reserved.</div>
     </div>
   </body>
 </html>

@@ -5,7 +5,7 @@ ALTER TABLE `user` ADD COLUMN `is_reviewer` TINYINT(1) NOT NULL DEFAULT 0;
 UPDATE `user` SET is_reviewer = 1
 WHERE id IN (SELECT DISTINCT reviewer_id FROM abstract_reviewer);
 
--- Backfill: mark all Reviewer Manager role users (the ECSA reviewer pool)
+-- Backfill: mark all Reviewer Manager role users (the CANECSA reviewer pool)
 UPDATE user u
 JOIN user_role ur ON ur.user_id = u.id
 JOIN role r ON r.id = ur.role_id
