@@ -1836,33 +1836,73 @@ def create_reviewer(
 
 
 def _sync_status_from_reviewer_consensus(abstract_id: int, db: Session):
-    """Auto-mark an abstract rejected once reviewer consensus is decisively
-    reject: 2+ reject recommendations (majority on a typical 3-reviewer
-    panel, e.g. 2 reject / 1 accept), or a unanimous reject when only one
-    reviewer is assigned. Never overrides a manual accept."""
-    from models.models import AbstractReview as _AbstractReview, ReviewRecommendation as _ReviewRecommendation
+    """Sync the abstract status to the collective reviewer decision once all
+    assigned reviewers have submitted their reviews.
+
+    This keeps the abstract in a final status instead of leaving it stuck as
+    ``under_review`` after the review cycle is complete, while still preserving
+    any explicit admin decision that already set the abstract to accepted or
+    rejected.
+    """
+    from models.models import ReviewRecommendation as _ReviewRecommendation
 
     assignments = db.query(AbstractReviewer).filter(
         AbstractReviewer.abstract_id == abstract_id
     ).all()
-    total_reviewers = len(assignments)
-    if not total_reviewers:
-        return
-
-    reject_count = (
-        db.query(_AbstractReview)
-        .filter(
-            _AbstractReview.assignment_id.in_([a.id for a in assignments]),
-            _AbstractReview.recommendation == _ReviewRecommendation.reject,
-        )
-        .count()
-    )
-    if not (reject_count >= 2 or reject_count == total_reviewers):
+    if not assignments:
         return
 
     abstract = db.query(Abstract).filter(Abstract.id == abstract_id).first()
-    if abstract and abstract.status != AbstractStatus.accepted:
-        abstract.status = AbstractStatus.rejected
+    if not abstract:
+        return
+
+    if abstract.status in {
+        AbstractStatus.accepted,
+        AbstractStatus.rejected,
+        AbstractStatus.revision_required,
+    }:
+        return
+
+    if any(not assignment.completed or not assignment.review for assignment in assignments):
+        if abstract.status == AbstractStatus.submitted:
+            abstract.status = AbstractStatus.under_review
+        return
+
+    recommendation_counts = {
+        _ReviewRecommendation.accept: 0,
+        _ReviewRecommendation.reject: 0,
+        _ReviewRecommendation.revision_required: 0,
+    }
+
+    for assignment in assignments:
+        if assignment.review is None:
+            return
+        recommendation_counts[assignment.review.recommendation] = (
+            recommendation_counts.get(assignment.review.recommendation, 0) + 1
+        )
+
+    accept_count = recommendation_counts[_ReviewRecommendation.accept]
+    reject_count = recommendation_counts[_ReviewRecommendation.reject]
+    revision_count = recommendation_counts[_ReviewRecommendation.revision_required]
+    total_reviewers = len(assignments)
+
+    if reject_count >= 2 or reject_count == total_reviewers:
+        final_status = AbstractStatus.rejected
+    elif accept_count >= 2 or accept_count == total_reviewers:
+        final_status = AbstractStatus.accepted
+    elif revision_count >= 2 or revision_count == total_reviewers:
+        final_status = AbstractStatus.revision_required
+    elif revision_count > accept_count and revision_count > reject_count:
+        final_status = AbstractStatus.revision_required
+    elif accept_count > reject_count:
+        final_status = AbstractStatus.accepted
+    elif reject_count > accept_count:
+        final_status = AbstractStatus.rejected
+    else:
+        final_status = AbstractStatus.under_review
+
+    if abstract.status != final_status:
+        abstract.status = final_status
         db.commit()
 
 
